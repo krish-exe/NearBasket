@@ -1,6 +1,12 @@
 # NearBasket
 
-A React + Vite + Tailwind implementation of the NearBasket / Vendor Hub design system, built from `DESIGN.md` and the provided mockups.
+[![Figma Design](https://img.shields.io/badge/Figma-Design%20Specs-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/design/YhYRGGXrpOtW1wnaHgNXJ1/Near-Basket?node-id=0-1)
+
+A React + Vite + Tailwind implementation of the NearBasket / Vendor Hub design system, built from the [Figma Design](https://www.figma.com/design/YhYRGGXrpOtW1wnaHgNXJ1/Near-Basket?node-id=0-1) and `DESIGN.md`.
+
+## 🎨 Figma Design Reference
+- **Figma File**: [Near-Basket Design System & Prototype](https://www.figma.com/design/YhYRGGXrpOtW1wnaHgNXJ1/Near-Basket?node-id=0-1)
+- **Interactive Prototype / Mockups**: See [`Figma prototype`](./Figma%20prototype) and [`DESIGN.md`](./DESIGN.md) for full design token breakdowns.
 
 ## Run it
 
