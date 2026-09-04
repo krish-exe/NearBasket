@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { MapPin, ChevronDown, Search, Camera, Mic, CircleUserRound, ShoppingCart, LocateFixed } from "lucide-react";
+import { MapPin, ChevronDown, Search, Camera, Mic, CircleUserRound, ShoppingCart, LocateFixed, LogOut } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 export default function Header() {
   const [locationOpen, setLocationOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
+  const { user, isLoggedIn, logout } = useAuth();
 
   return (
     <header className="bg-surface shadow-sm w-full h-16 sticky top-0 z-50">
@@ -91,9 +94,38 @@ export default function Header() {
             </a>
           </nav>
           <div className="flex items-center gap-md border-l border-outline-variant/20 pl-lg">
-            <button className="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95">
-              <CircleUserRound size={22} />
-            </button>
+            {isLoggedIn ? (
+              <div
+                className="relative"
+                onMouseEnter={() => setAccountOpen(true)}
+                onMouseLeave={() => setAccountOpen(false)}
+              >
+                <button className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95">
+                  <CircleUserRound size={22} className="text-primary" />
+                  <span className="hidden lg:inline font-label text-label-md text-on-surface max-w-[120px] truncate">
+                    {user?.name || user?.email}
+                  </span>
+                </button>
+                {accountOpen && (
+                  <div className="absolute top-full right-0 mt-2 w-48 bg-surface-container-lowest rounded-xl shadow-lift border border-outline-variant/30 overflow-hidden z-50">
+                    <button
+                      onClick={logout}
+                      className="w-full flex items-center gap-md p-md hover:bg-surface-container-low transition-colors text-left"
+                    >
+                      <LogOut className="text-on-surface-variant" size={18} />
+                      <span className="font-label text-label-md text-on-surface">Log Out</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95"
+              >
+                <CircleUserRound size={22} />
+              </Link>
+            )}
             <button className="px-6 py-2 bg-primary-container text-on-primary font-label text-label-md rounded-full hover:bg-primary transition-colors flex items-center gap-2 cursor-pointer active:scale-95 shadow-sm">
               <ShoppingCart size={18} />
               Cart
