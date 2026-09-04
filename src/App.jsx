@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import StorePage from "./pages/StorePage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import VendorLayout from "./components/VendorLayout";
 import DashboardPage from "./pages/vendor/DashboardPage";
 import InventoryPage from "./pages/vendor/InventoryPage";
@@ -35,6 +36,8 @@ export default function App() {
         <Route path="orders" element={<OrdersPage />} />
         <Route path="settings" element={<SettingsPage />} />
       </Route>
+
+      <Route path="*" element={<CustomerShell><NotFoundPage /></CustomerShell>} />
     </Routes>
   );
 }
