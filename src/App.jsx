@@ -3,6 +3,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import StorePage from "./pages/StorePage";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 import VendorLayout from "./components/VendorLayout";
 import DashboardPage from "./pages/vendor/DashboardPage";
 import InventoryPage from "./pages/vendor/InventoryPage";
@@ -24,6 +26,8 @@ export default function App() {
     <Routes>
       <Route path="/" element={<CustomerShell><HomePage /></CustomerShell>} />
       <Route path="/store/:storeId" element={<CustomerShell><StorePage /></CustomerShell>} />
+      <Route path="/login" element={<CustomerShell><LoginPage /></CustomerShell>} />
+      <Route path="/signup" element={<CustomerShell><SignupPage /></CustomerShell>} />
 
       <Route path="/vendor" element={<VendorLayout />}>
         <Route index element={<DashboardPage />} />
