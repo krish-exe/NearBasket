@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { User, Mail, Phone, Lock, ShoppingBasket } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^\d{10}$/;
@@ -46,11 +47,13 @@ function Field({ label, error, icon: Icon, children }) {
 export default function SignupPage() {
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo = location.state?.from || "/";
 
   const handleChange = (field) => (e) => {
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
-    setSubmitted(false);
   };
 
   const inputClass = (field) =>
@@ -62,7 +65,10 @@ export default function SignupPage() {
     e.preventDefault();
     const nextErrors = validate(form);
     setErrors(nextErrors);
-    setSubmitted(Object.keys(nextErrors).length === 0);
+    if (Object.keys(nextErrors).length === 0) {
+      login({ name: form.name.trim(), email: form.email.trim() });
+      navigate(redirectTo, { replace: true });
+    }
   };
 
   return (
@@ -75,12 +81,6 @@ export default function SignupPage() {
           <h1 className="font-display text-headline-md text-on-surface">Create your account</h1>
           <p className="font-body text-body-md text-on-surface-variant">Join NearBasket to shop your local stores.</p>
         </div>
-
-        {submitted && (
-          <div className="bg-primary/10 text-primary font-label text-label-md px-4 py-3 rounded-md text-center">
-            Account created successfully.
-          </div>
-        )}
 
         <form className="space-y-md" onSubmit={handleSubmit} noValidate>
           <Field label="Full Name" error={errors.name} icon={User}>
@@ -136,7 +136,7 @@ export default function SignupPage() {
 
         <p className="text-center font-body text-body-sm text-on-surface-variant">
           Already have an account?{" "}
-          <Link to="/login" className="text-primary font-semibold hover:underline">
+          <Link to="/login" state={location.state} className="text-primary font-semibold hover:underline">
             Log in
           </Link>
         </p>

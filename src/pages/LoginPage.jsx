@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Mail, Lock, ShoppingBasket } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -32,11 +33,13 @@ function Field({ label, error, icon: Icon, children }) {
 export default function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo = location.state?.from || "/";
 
   const handleChange = (field) => (e) => {
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
-    setSubmitted(false);
   };
 
   const inputClass = (field) =>
@@ -48,7 +51,10 @@ export default function LoginPage() {
     e.preventDefault();
     const nextErrors = validate(form);
     setErrors(nextErrors);
-    setSubmitted(Object.keys(nextErrors).length === 0);
+    if (Object.keys(nextErrors).length === 0) {
+      login({ email: form.email.trim() });
+      navigate(redirectTo, { replace: true });
+    }
   };
 
   return (
@@ -61,12 +67,6 @@ export default function LoginPage() {
           <h1 className="font-display text-headline-md text-on-surface">Welcome back</h1>
           <p className="font-body text-body-md text-on-surface-variant">Log in to order from stores near you.</p>
         </div>
-
-        {submitted && (
-          <div className="bg-primary/10 text-primary font-label text-label-md px-4 py-3 rounded-md text-center">
-            Logged in successfully.
-          </div>
-        )}
 
         <form className="space-y-md" onSubmit={handleSubmit} noValidate>
           <Field label="Email" error={errors.email} icon={Mail}>
@@ -99,7 +99,7 @@ export default function LoginPage() {
 
         <p className="text-center font-body text-body-sm text-on-surface-variant">
           Don't have an account?{" "}
-          <Link to="/signup" className="text-primary font-semibold hover:underline">
+          <Link to="/signup" state={location.state} className="text-primary font-semibold hover:underline">
             Sign up
           </Link>
         </p>

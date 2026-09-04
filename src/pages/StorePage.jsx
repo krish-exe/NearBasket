@@ -1,19 +1,25 @@
 import { useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Star, Map, Plus, ShoppingBasket } from "lucide-react";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { Star, Map, Plus, ShoppingBasket, CheckCircle2 } from "lucide-react";
 import { storeProducts } from "../data/mockData";
+import { useAuth } from "../context/AuthContext";
 
 export default function StorePage() {
   const { storeId } = useParams();
   const store = storeProducts[storeId] || storeProducts["green-valley-organics"];
   const [activeCategory, setActiveCategory] = useState("All");
   const [cart, setCart] = useState({});
+  const [orderPlaced, setOrderPlaced] = useState(false);
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const addToCart = (product) => {
     setCart((prev) => ({
       ...prev,
       [product.id]: { product, qty: (prev[product.id]?.qty || 0) + 1 },
     }));
+    setOrderPlaced(false);
   };
 
   const cartItems = Object.values(cart);
@@ -23,6 +29,14 @@ export default function StorePage() {
   );
   const serviceFee = cartItems.length ? 1.5 : 0;
   const total = subtotal + serviceFee;
+
+  const handleCheckout = () => {
+    if (!isLoggedIn) {
+      navigate("/login", { state: { from: location.pathname } });
+      return;
+    }
+    setOrderPlaced(true);
+  };
 
   return (
     <main className="flex-grow w-full max-w-content mx-auto px-margin-mobile md:px-margin-desktop py-xl space-y-xl">
@@ -149,11 +163,25 @@ export default function StorePage() {
             </div>
           </div>
 
+          {!isLoggedIn && cartItems.length > 0 && (
+            <p className="font-body text-body-sm text-on-surface-variant mt-md text-center">
+              Log in to complete your order.
+            </p>
+          )}
+
+          {orderPlaced && (
+            <div className="flex items-center gap-2 bg-primary/10 text-primary font-label text-label-md px-4 py-3 rounded-md mt-md">
+              <CheckCircle2 size={18} />
+              Order placed successfully.
+            </div>
+          )}
+
           <button
+            onClick={handleCheckout}
             disabled={cartItems.length === 0}
             className="w-full mt-lg py-3 bg-primary text-on-primary font-label text-label-md rounded-full hover:bg-primary-container transition-colors shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            Proceed to Checkout
+            {isLoggedIn ? "Proceed to Checkout" : "Log In to Checkout"}
           </button>
         </aside>
       </div>
