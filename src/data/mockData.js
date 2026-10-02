@@ -1,0 +1,547 @@
+export const categories = [
+  { id: "all", name: "All Items", icon: "basket", bg: "bg-surface-container", fg: "text-primary" },
+  { id: "fruits-veg", name: "Fruits & Veggies", icon: "leaf", bg: "bg-primary-fixed", fg: "text-on-primary-fixed-variant" },
+  { id: "dairy", name: "Dairy & Eggs", icon: "droplet", bg: "bg-tertiary-fixed", fg: "text-on-tertiary-fixed" },
+  { id: "bakery", name: "Bakery & Bread", icon: "croissant", bg: "bg-secondary-fixed", fg: "text-on-secondary-fixed" },
+  { id: "snacks", name: "Snacks & Drinks", icon: "cookie", bg: "bg-secondary-fixed-dim", fg: "text-on-secondary-fixed-variant" },
+  { id: "staples", name: "Staples & Grains", icon: "basket", bg: "bg-surface-container-high", fg: "text-primary" },
+  { id: "household", name: "Household Care", icon: "spray", bg: "bg-surface-container", fg: "text-primary" },
+];
+
+export const stores = [
+  {
+    id: "green-valley-organics",
+    name: "Green Valley Organics",
+    rating: 4.9,
+    reviews: 340,
+    distance: "800m away",
+    delivery: "Delivery in 20-25 mins",
+    status: "open",
+    address: "102 Indiranagar 100ft Rd, Bengaluru",
+    banner: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    id: "sharma-general-store",
+    name: "Sharma General Store",
+    rating: 4.8,
+    reviews: 210,
+    distance: "450m away",
+    delivery: "Delivery in 15-20 mins",
+    status: "open",
+    address: "45 HAL 2nd Stage, Bengaluru",
+    banner: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?q=80&w=1600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    id: "fresh-mart-daily",
+    name: "Fresh Mart Daily",
+    rating: 4.6,
+    reviews: 156,
+    distance: "1.2km away",
+    delivery: "Delivery in 30 mins",
+    status: "open",
+    address: "78 Koramangala 4th Block, Bengaluru",
+    banner: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?q=80&w=1600&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?q=80&w=800&auto=format&fit=crop",
+  },
+];
+
+export const products = [
+  // Fruits & Veggies
+  {
+    id: "apples-red",
+    name: "Organic Red Apples",
+    unit: "1 kg",
+    price: 180,
+    originalPrice: 220,
+    isDeal: true,
+    dealTag: "18% OFF",
+    category: "Fruits & Veggies",
+    categoryId: "fruits-veg",
+    storeId: "green-valley-organics",
+    rating: 4.8,
+    image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?q=80&w=600&auto=format&fit=crop",
+    description: "Crisp and juicy farm-fresh organic red apples rich in fiber and antioxidants."
+  },
+  {
+    id: "fresh-bananas",
+    name: "Robusta Fresh Bananas",
+    unit: "1 kg",
+    price: 50,
+    originalPrice: 65,
+    isDeal: true,
+    dealTag: "23% OFF",
+    category: "Fruits & Veggies",
+    categoryId: "fruits-veg",
+    storeId: "green-valley-organics",
+    rating: 4.7,
+    image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?q=80&w=600&auto=format&fit=crop",
+    description: "Naturally ripened sweet bananas packed with potassium."
+  },
+  {
+    id: "kale-bunch",
+    name: "Fresh Organic Kale Bunch",
+    unit: "1 bunch (250g)",
+    price: 90,
+    originalPrice: 120,
+    isDeal: true,
+    dealTag: "25% OFF",
+    category: "Fruits & Veggies",
+    categoryId: "fruits-veg",
+    storeId: "green-valley-organics",
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1524179091875-bf99a9a6af57?q=80&w=600&auto=format&fit=crop",
+    description: "Nutrient-dense green kale freshly harvested from local organic gardens."
+  },
+  {
+    id: "organic-tomatoes",
+    name: "Hybrid Red Tomatoes",
+    unit: "1 kg",
+    price: 35,
+    originalPrice: 35,
+    isDeal: false,
+    category: "Fruits & Veggies",
+    categoryId: "fruits-veg",
+    storeId: "sharma-general-store",
+    rating: 4.5,
+    image: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?q=80&w=600&auto=format&fit=crop",
+    description: "Firm and juicy tomatoes ideal for curries, salads, and gravies."
+  },
+  {
+    id: "fresh-spinach",
+    name: "Farm Fresh Spinach (Palak)",
+    unit: "1 bunch",
+    price: 25,
+    originalPrice: 30,
+    isDeal: false,
+    category: "Fruits & Veggies",
+    categoryId: "fruits-veg",
+    storeId: "fresh-mart-daily",
+    rating: 4.6,
+    image: "https://images.unsplash.com/photo-1576045057995-568f588f82fb?q=80&w=600&auto=format&fit=crop",
+    description: "Tender green spinach leaves packed with iron and minerals."
+  },
+
+  // Dairy & Eggs
+  {
+    id: "farm-milk-1l",
+    name: "Pure Farm Fresh Whole Milk",
+    unit: "1 Litre",
+    price: 68,
+    originalPrice: 75,
+    isDeal: true,
+    dealTag: "SPECIAL DEAL",
+    category: "Dairy & Eggs",
+    categoryId: "dairy",
+    storeId: "green-valley-organics",
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?q=80&w=600&auto=format&fit=crop",
+    description: "Pasteurized whole milk sourced directly from local dairy farms."
+  },
+  {
+    id: "organic-eggs",
+    name: "Free-Range Brown Eggs",
+    unit: "6 pcs",
+    price: 72,
+    originalPrice: 85,
+    isDeal: true,
+    dealTag: "15% OFF",
+    category: "Dairy & Eggs",
+    categoryId: "dairy",
+    storeId: "green-valley-organics",
+    rating: 4.8,
+    image: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?q=80&w=600&auto=format&fit=crop",
+    description: "Farm-raised free-range brown eggs high in protein and omega-3."
+  },
+  {
+    id: "greek-yogurt",
+    name: "Natural Greek Yogurt",
+    unit: "400g tub",
+    price: 140,
+    originalPrice: 160,
+    isDeal: true,
+    dealTag: "12% OFF",
+    category: "Dairy & Eggs",
+    categoryId: "dairy",
+    storeId: "fresh-mart-daily",
+    rating: 4.7,
+    image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=600&auto=format&fit=crop",
+    description: "Thick and creamy unsweetened Greek yogurt with live gut cultures."
+  },
+  {
+    id: "paneer-fresh",
+    name: "Fresh Malai Paneer",
+    unit: "200g",
+    price: 95,
+    originalPrice: 95,
+    isDeal: false,
+    category: "Dairy & Eggs",
+    categoryId: "dairy",
+    storeId: "sharma-general-store",
+    rating: 4.6,
+    image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=600&auto=format&fit=crop",
+    description: "Soft cottage cheese made from fresh cow milk."
+  },
+
+  // Bakery & Bread
+  {
+    id: "sourdough-artisan",
+    name: "Artisan Sourdough Loaf",
+    unit: "1 loaf (400g)",
+    price: 149,
+    originalPrice: 180,
+    isDeal: true,
+    dealTag: "HOT DEAL",
+    category: "Bakery & Bread",
+    categoryId: "bakery",
+    storeId: "green-valley-organics",
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1585478259715-4d3a5f5b8b9a?q=80&w=600&auto=format&fit=crop",
+    description: "Slow-fermented classic sourdough with a crispy crust and soft airy interior."
+  },
+  {
+    id: "whole-wheat-bread",
+    name: "100% Whole Wheat Bread",
+    unit: "400g loaf",
+    price: 55,
+    originalPrice: 55,
+    isDeal: false,
+    category: "Bakery & Bread",
+    categoryId: "bakery",
+    storeId: "sharma-general-store",
+    rating: 4.5,
+    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600&auto=format&fit=crop",
+    description: "Freshly baked whole grain bread rich in dietary fiber."
+  },
+  {
+    id: "butter-croissants",
+    name: "French Butter Croissants",
+    unit: "Pack of 2",
+    price: 120,
+    originalPrice: 150,
+    isDeal: true,
+    dealTag: "20% OFF",
+    category: "Bakery & Bread",
+    categoryId: "bakery",
+    storeId: "fresh-mart-daily",
+    rating: 4.8,
+    image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600&auto=format&fit=crop",
+    description: "Golden flaky croissants made with real European butter."
+  },
+
+  // Snacks & Drinks
+  {
+    id: "roasted-almonds",
+    name: "California Roasted Almonds",
+    unit: "250g pack",
+    price: 299,
+    originalPrice: 380,
+    isDeal: true,
+    dealTag: "21% OFF",
+    category: "Snacks & Drinks",
+    categoryId: "snacks",
+    storeId: "sharma-general-store",
+    rating: 4.8,
+    image: "https://images.unsplash.com/photo-1508061252966-f7266b0337c7?q=80&w=600&auto=format&fit=crop",
+    description: "Crunchy lightly salted premium roasted almonds."
+  },
+  {
+    id: "dark-chocolate",
+    name: "70% Dark Artisanal Chocolate",
+    unit: "100g bar",
+    price: 160,
+    originalPrice: 200,
+    isDeal: true,
+    dealTag: "20% OFF",
+    category: "Snacks & Drinks",
+    categoryId: "snacks",
+    storeId: "green-valley-organics",
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?q=80&w=600&auto=format&fit=crop",
+    description: "Rich bean-to-bar dark chocolate infused with organic vanilla."
+  },
+  {
+    id: "kombucha-ginger",
+    name: "Organic Sparkling Ginger Kombucha",
+    unit: "330ml bottle",
+    price: 135,
+    originalPrice: 150,
+    isDeal: true,
+    dealTag: "10% OFF",
+    category: "Snacks & Drinks",
+    categoryId: "snacks",
+    storeId: "green-valley-organics",
+    rating: 4.7,
+    image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=600&auto=format&fit=crop",
+    description: "Refreshing probiotic fermented tea with cold-pressed ginger juice."
+  },
+
+  // Staples & Grains
+  {
+    id: "basmati-rice",
+    name: "Premium Aged Basmati Rice",
+    unit: "5 kg bag",
+    price: 649,
+    originalPrice: 799,
+    isDeal: true,
+    dealTag: "SAVE Rs. 150",
+    category: "Staples & Grains",
+    categoryId: "staples",
+    storeId: "sharma-general-store",
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=600&auto=format&fit=crop",
+    description: "Extra long grain aromatic basmati rice aged for 2 years."
+  },
+  {
+    id: "organic-honey",
+    name: "Wildflower Raw Organic Honey",
+    unit: "500g jar",
+    price: 320,
+    originalPrice: 399,
+    isDeal: true,
+    dealTag: "20% OFF",
+    category: "Staples & Grains",
+    categoryId: "staples",
+    storeId: "green-valley-organics",
+    rating: 4.8,
+    image: "https://images.unsplash.com/photo-1587049352847-4a222e784d38?q=80&w=600&auto=format&fit=crop",
+    description: "Unfiltered 100% natural mountain honey."
+  },
+  {
+    id: "whole-wheat-atta",
+    name: "Sharbati Whole Wheat Atta",
+    unit: "5 kg bag",
+    price: 265,
+    originalPrice: 290,
+    isDeal: false,
+    category: "Staples & Grains",
+    categoryId: "staples",
+    storeId: "sharma-general-store",
+    rating: 4.7,
+    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600&auto=format&fit=crop",
+    description: "Stone-ground whole wheat flour for soft rotis."
+  },
+
+  // Household Care
+  {
+    id: "eco-dishwash",
+    name: "Plant-Based Liquid Dishwash",
+    unit: "500ml",
+    price: 185,
+    originalPrice: 220,
+    isDeal: true,
+    dealTag: "16% OFF",
+    category: "Household Care",
+    categoryId: "household",
+    storeId: "fresh-mart-daily",
+    rating: 4.6,
+    image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=600&auto=format&fit=crop",
+    description: "Tough on grease, gentle on skin. Made with natural citrus oils."
+  },
+  {
+    id: "surface-cleaner",
+    name: "Natural Floor Cleaner (Lavender)",
+    unit: "1 Litre",
+    price: 210,
+    originalPrice: 250,
+    isDeal: true,
+    dealTag: "16% OFF",
+    category: "Household Care",
+    categoryId: "household",
+    storeId: "sharma-general-store",
+    rating: 4.5,
+    image: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=80&w=600&auto=format&fit=crop",
+    description: "Non-toxic disinfectant floor cleaner infused with essential oils."
+  }
+];
+
+export const offers = [
+  {
+    id: "NEAR50",
+    code: "NEAR50",
+    title: "Flat Rs. 50 OFF on First 3 Orders",
+    description: "Get Rs. 50 instant discount on orders above Rs. 299.",
+    discountType: "flat",
+    discountValue: 50,
+    minOrder: 299,
+    expiryDate: "Valid till 31 Oct 2026",
+    tag: "POPULAR",
+    bg: "bg-primary-container",
+    textColor: "text-on-primary",
+  },
+  {
+    id: "FRESH20",
+    code: "FRESH20",
+    title: "20% OFF on Fruits & Organic Veggies",
+    description: "Save up to Rs. 100 on fresh produce from Green Valley Organics.",
+    discountType: "pct",
+    discountValue: 20,
+    maxDiscount: 100,
+    minOrder: 350,
+    categoryId: "fruits-veg",
+    expiryDate: "Valid till 15 Nov 2026",
+    tag: "VEGGIES SPECIAL",
+    bg: "bg-tertiary-container",
+    textColor: "text-on-tertiary",
+  },
+  {
+    id: "HEALTH15",
+    code: "HEALTH15",
+    title: "15% OFF on Dairy & Bakery Items",
+    description: "Enjoy 15% discount on milk, bread, eggs and artisan bakery items.",
+    discountType: "pct",
+    discountValue: 15,
+    maxDiscount: 120,
+    minOrder: 250,
+    categoryId: "dairy",
+    expiryDate: "Valid till 28 Oct 2026",
+    tag: "DAILY STAPLES",
+    bg: "bg-secondary-container",
+    textColor: "text-on-secondary",
+  },
+  {
+    id: "FESTIVE100",
+    code: "FESTIVE100",
+    title: "Rs. 100 OFF Mega Basket Saver",
+    description: "Big savings on orders above Rs. 999 across all stores.",
+    discountType: "flat",
+    discountValue: 100,
+    minOrder: 999,
+    expiryDate: "Valid till 30 Nov 2026",
+    tag: "MEGA SAVER",
+    bg: "bg-surface-tint",
+    textColor: "text-white",
+  }
+];
+
+export const inventoryItems = [
+  {
+    id: "VEG-001",
+    name: "Organic Asparagus",
+    subtitle: "Local farm",
+    category: "Produce",
+    price: "Rs. 249",
+    stock: 45,
+    status: "Active",
+    image: "https://images.unsplash.com/photo-1515471209610-2b0c229d3128?q=80&w=200&auto=format&fit=crop",
+  },
+  {
+    id: "BAK-042",
+    name: "Artisan Sourdough",
+    subtitle: "Fresh baked daily",
+    category: "Bakery",
+    price: "Rs. 149",
+    stock: 2,
+    status: "Low Stock",
+    warning: true,
+    image: "https://images.unsplash.com/photo-1585478259715-4d3a5f5b8b9a?q=80&w=200&auto=format&fit=crop",
+  },
+  {
+    id: "PAN-112",
+    name: "Local Honey (16oz)",
+    subtitle: "Wildflower blend",
+    category: "Pantry",
+    price: "Rs. 320",
+    stock: 18,
+    status: "Draft",
+    image: null,
+  },
+];
+
+export const initialOrders = [
+  {
+    id: "NB-8492",
+    date: "2026-10-02T18:30:00.000Z",
+    formattedDate: "02 Oct 2026, 06:30 PM",
+    customer: "Priya Patel",
+    email: "priya@example.com",
+    storeName: "Green Valley Organics",
+    storeId: "green-valley-organics",
+    items: [
+      {
+        product: {
+          id: "apples-red",
+          name: "Organic Red Apples",
+          unit: "1 kg",
+          price: 180,
+          image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?q=80&w=600&auto=format&fit=crop"
+        },
+        qty: 1
+      },
+      {
+        product: {
+          id: "sourdough-artisan",
+          name: "Artisan Sourdough Loaf",
+          unit: "1 loaf (400g)",
+          price: 149,
+          image: "https://images.unsplash.com/photo-1585478259715-4d3a5f5b8b9a?q=80&w=600&auto=format&fit=crop"
+        },
+        qty: 1
+      }
+    ],
+    subtotal: 329,
+    discount: 50,
+    deliveryFee: 25,
+    total: 304,
+    offerCode: "NEAR50",
+    paymentMethod: "UPI (Google Pay)",
+    paymentStatus: "Paid",
+    status: "Delivered",
+    address: "Flat 402, Sunshine Apartments, Indiranagar, Bengaluru"
+  },
+  {
+    id: "NB-8491",
+    date: "2026-09-28T14:15:00.000Z",
+    formattedDate: "28 Sep 2026, 02:15 PM",
+    customer: "Priya Patel",
+    email: "priya@example.com",
+    storeName: "Sharma General Store",
+    storeId: "sharma-general-store",
+    items: [
+      {
+        product: {
+          id: "basmati-rice",
+          name: "Premium Aged Basmati Rice",
+          unit: "5 kg bag",
+          price: 649,
+          image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=600&auto=format&fit=crop"
+        },
+        qty: 1
+      },
+      {
+        product: {
+          id: "roasted-almonds",
+          name: "California Roasted Almonds",
+          unit: "250g pack",
+          price: 299,
+          image: "https://images.unsplash.com/photo-1508061252966-f7266b0337c7?q=80&w=600&auto=format&fit=crop"
+        },
+        qty: 1
+      }
+    ],
+    subtotal: 948,
+    discount: 0,
+    deliveryFee: 25,
+    total: 973,
+    offerCode: null,
+    paymentMethod: "Cash on Delivery",
+    paymentStatus: "Paid",
+    status: "Delivered",
+    address: "Flat 402, Sunshine Apartments, Indiranagar, Bengaluru"
+  }
+];
+
+export const recentOrders = [
+  { id: "#NB-8492", customer: "Priya Patel", items: "4 items", total: "Rs. 304.00", status: "Pending" },
+  { id: "#NB-8491", customer: "Aiden M.", items: "12 items", total: "Rs. 973.00", status: "Accepted" },
+  { id: "#NB-8490", customer: "Sarah Jenkins", items: "2 items", total: "Rs. 182.50", status: "Accepted" },
+  { id: "#NB-8489", customer: "David L.", items: "6 items", total: "Rs. 459.00", status: "Completed" },
+];
+
+export const popularProducts = [
+  { name: "Organic Bananas (Bunch)", sold: 42, pct: 100 },
+  { name: "Local Whole Milk (1 Litre)", font: 38, pct: 90 },
+  { name: "Fresh Sourdough Bread", sold: 24, pct: 57 },
+  { name: "Free-Range Brown Eggs", sold: 19, pct: 45 },
+];

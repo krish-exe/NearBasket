@@ -1,0 +1,1484 @@
+<!-- Customer Home - Desktop -->
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>NearBasket - Your Helpful Neighbor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#ebefe5",
+                    "primary": "#0d631b",
+                    "surface-tint": "#1b6d24",
+                    "surface-container-highest": "#e0e4da",
+                    "on-secondary-container": "#623400",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb77a",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#97f3e2",
+                    "secondary": "#8f4e00",
+                    "on-surface-variant": "#40493d",
+                    "on-primary-fixed": "#002204",
+                    "inverse-on-surface": "#eef2e8",
+                    "on-error": "#ffffff",
+                    "tertiary": "#006156",
+                    "on-surface": "#181d17",
+                    "primary-fixed-dim": "#88d982",
+                    "on-tertiary-fixed-variant": "#005047",
+                    "on-secondary-fixed-variant": "#6d3a00",
+                    "on-primary-container": "#cbffc2",
+                    "inverse-primary": "#88d982",
+                    "surface-container-low": "#f1f5eb",
+                    "primary-fixed": "#a3f69c",
+                    "background": "#f7fbf0",
+                    "surface-bright": "#f7fbf0",
+                    "surface-variant": "#e0e4da",
+                    "surface": "#f7fbf0",
+                    "tertiary-fixed-dim": "#7ad7c6",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#ffdcc2",
+                    "on-tertiary-fixed": "#00201b",
+                    "on-secondary-fixed": "#2e1500",
+                    "surface-container-high": "#e5eadf",
+                    "secondary-container": "#ff8f00",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#d7dbd2",
+                    "on-primary-fixed-variant": "#005312",
+                    "outline-variant": "#bfcaba",
+                    "primary-container": "#2e7d32",
+                    "outline": "#707a6c",
+                    "on-tertiary-container": "#bdfff1",
+                    "tertiary-container": "#097c6e",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#181d17",
+                    "inverse-surface": "#2d322b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "gutter": "16px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "2xl": "48px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "margin-desktop": "64px"
+            },
+            "fontFamily": {
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "display-lg-mobile": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-sm": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "display-lg": [
+                            "Plus Jakarta Sans"
+                    ]
+            },
+            "fontSize": {
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-sm": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "40px",
+                            {
+                                    "lineHeight": "48px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Subtle hover effect for cards */
+        .card-hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card-hover-lift:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased flex flex-col min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-surface shadow-sm dark:bg-surface-dim w-full h-16 sticky top-0 z-50">
+<div class="flex justify-between items-center px-margin-desktop w-full max-w-[1280px] mx-auto h-full"><!-- Left Group: Logo & Location -->
+<div class="flex items-center gap-lg h-full">
+  <a class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed hover:opacity-80 transition-opacity" href="#">
+    NearBasket
+  </a>
+  <div class="relative group">
+    <button class="flex items-center gap-1 px-3 py-1.5 rounded-full hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95">
+      <span class="material-symbols-outlined text-primary text-[20px]">location_on</span>
+      <span class="font-label-md text-on-surface max-w-[200px] line-clamp-1">Home - Near Indiranagar...</span>
+      <span class="material-symbols-outlined text-on-surface-variant text-[18px]">expand_more</span>
+    </button>
+    <!-- Dropdown Preview Card (Preserved) -->
+    <div class="absolute top-full left-0 mt-2 w-80 bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant/30 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+      <div class="p-md space-y-md">
+        <div class="relative">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+          <input type="text" placeholder="Search for area..." class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg font-body-sm focus:outline-none focus:ring-2 focus:ring-primary">
+        </div>
+        <button class="w-full flex items-center gap-md p-sm hover:bg-surface-container-low rounded-lg transition-colors text-left">
+          <span class="material-symbols-outlined text-primary">my_location</span>
+          <div>
+            <p class="font-label-md text-primary">Current Location</p>
+            <p class="text-[12px] text-on-surface-variant">Using GPS</p>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Center Group: Wide Search Bar -->
+<div class="flex-grow max-w-2xl px-xl">
+  <div class="relative flex items-center w-full">
+    <span class="material-symbols-outlined absolute left-4 text-on-surface-variant text-lg">search</span>
+    <input class="w-full pl-12 pr-20 py-2.5 bg-surface-container-low border border-outline-variant rounded-full font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-on-surface-variant" placeholder="Search for groceries, stores..." type="text">
+    <div class="absolute right-4 flex items-center gap-3">
+      <button class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95 flex items-center">
+        <span class="material-symbols-outlined text-lg">photo_camera</span>
+      </button>
+      <button class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95 flex items-center">
+        <span class="material-symbols-outlined text-lg">mic</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Right Group: Nav Links & Actions -->
+<div class="flex items-center gap-lg">
+  <nav class="hidden md:flex items-center gap-lg h-full">
+    <a class="text-primary font-bold border-b-2 border-primary py-1 transition-all" href="#">Stores</a>
+    <a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Deals</a>
+    <a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Orders</a>
+  </nav>
+  <div class="flex items-center gap-md border-l border-outline-variant/20 pl-lg">
+    <button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95">
+      <span class="material-symbols-outlined">account_circle</span>
+    </button>
+    <button class="px-6 py-2 bg-primary-container text-on-primary font-label-md text-label-md rounded-full hover:bg-primary transition-colors flex items-center gap-2 cursor-pointer active:scale-95 shadow-sm">
+      <span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+      Cart
+    </button>
+  </div>
+</div></div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-[1280px] mx-auto px-margin-desktop py-xl space-y-2xl">
+<!-- Hero Section -->
+<section class="relative rounded-2xl overflow-hidden bg-surface-container-low min-h-[400px] flex items-center shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
+<div class="absolute inset-0 z-0">
+<div class="bg-cover bg-center w-full h-full opacity-40" data-alt="A warm, inviting scene of fresh produce and artisanal bread displayed elegantly in front of a slightly blurred, modern local grocery store. Sunlight filters through large windows, creating a bright, optimistic light-mode aesthetic. The color palette emphasizes natural greens, rich earthy tones of baked goods, and clean white shelving, embodying a tactile, 'Helpful Neighbor' modern minimalist vibe." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCYBpD72VdctAEL8SDOyg2MJTphaalkvuUNPKFyyEbTl2zEeMZpBGbKnuj1BCpi7yC5PZu9wYg2cQrtHyoMxWuxNDsBqt5PitFXkgz-Kk_DLK460G-ToaHjGNn_ti-0KSX-DEijOWqOBfKvcUODjb3ClfNsxjvr0Qi4HGUBewnd7y0gV4y24lFq9xctRI9kZngCVj6KA8mJmV6mySWjzwrSlB3mdBkXnvsvrfCgzLnrGpv8i_zB5tNI')"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
+</div>
+<div class="relative z-10 p-xl md:p-2xl max-w-2xl">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-sm">
+                    Your neighborhood market, online.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl">
+                    Fresh groceries, daily staples, and local favorites delivered from stores right around the corner. Support local, shop fresh.
+                </p>
+<!-- Mobile Search Fallback -->
+<div class="md:hidden w-full relative mb-lg">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface border border-outline-variant rounded-full shadow-sm font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Search products or stores..." type="text">
+<div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
+  <button class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95 flex items-center">
+    <span class="material-symbols-outlined text-lg">photo_camera</span>
+  </button>
+  <button class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95 flex items-center">
+    <span class="material-symbols-outlined text-lg">mic</span>
+  </button>
+</div></div>
+<div class="flex gap-md">
+<button class="px-8 py-3 bg-primary-container text-on-primary font-label-md text-label-md rounded-full hover:bg-primary transition-colors shadow-sm">
+                        Find Stores Nearby
+                    </button>
+<button class="px-8 py-3 bg-surface text-primary border border-primary font-label-md text-label-md rounded-full hover:bg-surface-container-low transition-colors">
+                        Browse Deals
+                    </button>
+</div>
+</div>
+</section>
+<!-- Explore Categories -->
+<section class="space-y-lg">
+<h2 class="font-headline-md text-headline-md text-on-surface">Explore Categories</h2>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-md">
+<!-- Category Tiles -->
+<a class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-md flex flex-col items-center justify-center gap-sm aspect-square card-hover-lift shadow-[0_4px_20px_rgba(0,0,0,0.02)]" href="#">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined icon-fill text-[28px]" data-icon="shopping_basket">shopping_basket</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface text-center">Staples</span>
+</a>
+<a class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-md flex flex-col items-center justify-center gap-sm aspect-square card-hover-lift shadow-[0_4px_20px_rgba(0,0,0,0.02)]" href="#">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined icon-fill text-[28px]" data-icon="cookie">cookie</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface text-center">Snacks</span>
+</a>
+<a class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-md flex flex-col items-center justify-center gap-sm aspect-square card-hover-lift shadow-[0_4px_20px_rgba(0,0,0,0.02)]" href="#">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined icon-fill text-[28px]" data-icon="water_drop">water_drop</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface text-center">Dairy</span>
+</a>
+<a class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-md flex flex-col items-center justify-center gap-sm aspect-square card-hover-lift shadow-[0_4px_20px_rgba(0,0,0,0.02)]" href="#">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined icon-fill text-[28px]" data-icon="cleaning_services">cleaning_services</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface text-center">Household</span>
+</a>
+<a class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-md flex flex-col items-center justify-center gap-sm aspect-square card-hover-lift shadow-[0_4px_20px_rgba(0,0,0,0.02)]" href="#">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined icon-fill text-[28px]" data-icon="spa">spa</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface text-center">Personal Care</span>
+</a>
+<a class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-md flex flex-col items-center justify-center gap-sm aspect-square card-hover-lift shadow-[0_4px_20px_rgba(0,0,0,0.02)]" href="#">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined icon-fill text-[28px]" data-icon="bakery_dining">bakery_dining</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface text-center">Bakery</span>
+</a>
+</div>
+</section>
+<!-- Top Stores Near You -->
+<section class="space-y-lg">
+<div class="flex justify-between items-end">
+<h2 class="font-headline-md text-headline-md text-on-surface">Top Stores Near You</h2>
+<a class="font-label-md text-label-md text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+<!-- Store Card 1 -->
+<a class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] card-hover-lift border border-outline-variant/20 block" href="#">
+<div class="h-40 w-full relative">
+<img class="object-cover w-full h-full" data-alt="The storefront of 'Sharma General Store', a neat and welcoming local grocery shop. The facade is clean, well-lit by daytime sunlight, with neatly arranged fresh produce bins outside. It reflects a modern minimalist yet tactile aesthetic, conveying trust and reliability within a neighborhood setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJzV26RHXdMjnhWhH9r2HGOmGV2EjxWpyvnKebENeSt3yIzSgYrD9G5EXRj6gGlvCeoQgOEYDVJl7jadIeYC-x95IpjxemeF1udGSV-v2ldnT0zEFLLx5fxMGs7jOE7wi6hicPz1cRypCd04UgtjnNPp39Fyw2oMTdRjuYgl4uQyz77t4IXJ1Po4WL9S9A6yjr1YQqJoSXQL8LIjFvC3mV8eHLyNDVVH04nnJE9p6U8XFcczSFgvPF">
+<!-- Open Now Badge (Soft Fill) -->
+<div class="absolute top-4 left-4 bg-primary/10 backdrop-blur-sm px-3 py-1 rounded-full border border-primary/20">
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+                                Open Now
+                            </span>
+</div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface line-clamp-1">Sharma General Store</h3>
+<div class="flex items-center gap-1 bg-surface-container px-2 py-1 rounded-md">
+<span class="material-symbols-outlined icon-fill text-secondary-container text-[14px]" data-icon="star">star</span>
+<span class="font-label-sm text-label-sm text-on-surface">4.8</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+                            450m away • Delivery in 20 mins
+                        </p>
+</div>
+</a>
+<!-- Store Card 2 -->
+<a class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] card-hover-lift border border-outline-variant/20 block" href="#">
+<div class="h-40 w-full relative">
+<img class="object-cover w-full h-full" data-alt="A bright, clean interior view of 'Fresh Mart Daily', showcasing organized aisles of packaged goods and fresh dairy. The lighting is soft and inviting, emphasizing a modern, pristine shopping environment that aligns with the 'Helpful Neighbor' brand identity. High key, light mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCW_unLHF9wnnq2ixgHwdMlSFy49ZbuBz2x3eo3gUUrkIDxZ4QB-amcnn8PchWpr6ZxYzGYQHwyogIb2GdHfT64LMIdTbHUl25M3aLWR19xtz2BgaM6PbeWKZzGC19noY0nLYDn4t_o5s7bqGJJtf7SKw5QglwfP3p58Blq8VoCQdCgkameJh-_a9y_5w3ociuDtrm7y6v_v2kv2r8BNUxv1Z1cjlrqUK8b41zhjBdi-xraSQGBM7HX">
+<!-- Open Now Badge -->
+<div class="absolute top-4 left-4 bg-primary/10 backdrop-blur-sm px-3 py-1 rounded-full border border-primary/20">
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+                                Open Now
+                            </span>
+</div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface line-clamp-1">Fresh Mart Daily</h3>
+<div class="flex items-center gap-1 bg-surface-container px-2 py-1 rounded-md">
+<span class="material-symbols-outlined icon-fill text-secondary-container text-[14px]" data-icon="star">star</span>
+<span class="font-label-sm text-label-sm text-on-surface">4.6</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+                            1.2km away • Delivery in 35 mins
+                        </p>
+</div>
+</a>
+<!-- Store Card 3 -->
+<a class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] card-hover-lift border border-outline-variant/20 block" href="#">
+<div class="h-40 w-full relative">
+<img class="object-cover w-full h-full" data-alt="A close-up view of a beautifully arranged organic produce section inside 'Green Valley Organics'. Vibrant greens, reds, and yellows of fresh vegetables dominate the frame, lit by warm, diffused light. The scene captures the tactile freshness and premium local quality central to the design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMV5X_uM2nZ1Wit0RYficNn_5qj03H-0ytnsTGf8WMtANzwUeQ83Wz_i5EKcfoFIz-wDBh6uXNBHRZUGIOCi7BDXSZm2t8ro9vhrDYnLF31jkiZIyVVB9d8RR9dpx1LmJsVooWCVTEcPwCOysS9ZtyssAJTkohpodEoU3bUOKbbrRWt-fjQ7_hRaQgqKRPhqPsBpFXX7Kb8Kz7x67-DGqTiOnKjopBHRiv0Ym8t4ix1uF2Q3XlpfI1">
+<!-- Status Badge (Different color for variety, e.g. closing soon) -->
+<div class="absolute top-4 left-4 bg-secondary-container/10 backdrop-blur-sm px-3 py-1 rounded-full border border-secondary-container/20">
+<span class="font-label-sm text-label-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="schedule">schedule</span>
+                                Closes soon
+                            </span>
+</div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface line-clamp-1">Green Valley Organics</h3>
+<div class="flex items-center gap-1 bg-surface-container px-2 py-1 rounded-md">
+<span class="material-symbols-outlined icon-fill text-secondary-container text-[14px]" data-icon="star">star</span>
+<span class="font-label-sm text-label-sm text-on-surface">4.9</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+                            800m away • Delivery in 25 mins
+                        </p>
+</div>
+</a>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-surface-container dark:bg-surface-container-high w-full py-xl mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-start px-margin-desktop w-full max-w-[1280px] mx-auto gap-xl">
+<div class="flex flex-col gap-sm">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">NearBasket</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">© 2026 NearBasket. Your Helpful Neighbor.</p>
+</div>
+<nav class="flex flex-col sm:flex-row gap-lg">
+<a class="font-body-md text-body-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="#">About Us</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="#">Sell on NearBasket</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="#">Download App</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:underline hover:text-primary transition-all" href="#">Privacy Policy</a>
+</nav>
+</div>
+</footer>
+
+
+
+
+</body></html>
+
+<!-- Store Detail - Desktop -->
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Green Valley Market - NearBasket</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#ebefe5",
+                    "primary": "#0d631b",
+                    "surface-tint": "#1b6d24",
+                    "surface-container-highest": "#e0e4da",
+                    "on-secondary-container": "#623400",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb77a",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#97f3e2",
+                    "secondary": "#8f4e00",
+                    "on-surface-variant": "#40493d",
+                    "on-primary-fixed": "#002204",
+                    "inverse-on-surface": "#eef2e8",
+                    "on-error": "#ffffff",
+                    "tertiary": "#006156",
+                    "on-surface": "#181d17",
+                    "primary-fixed-dim": "#88d982",
+                    "on-tertiary-fixed-variant": "#005047",
+                    "on-secondary-fixed-variant": "#6d3a00",
+                    "on-primary-container": "#cbffc2",
+                    "inverse-primary": "#88d982",
+                    "surface-container-low": "#f1f5eb",
+                    "primary-fixed": "#a3f69c",
+                    "background": "#f7fbf0",
+                    "surface-bright": "#f7fbf0",
+                    "surface-variant": "#e0e4da",
+                    "surface": "#f7fbf0",
+                    "tertiary-fixed-dim": "#7ad7c6",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#ffdcc2",
+                    "on-tertiary-fixed": "#00201b",
+                    "on-secondary-fixed": "#2e1500",
+                    "surface-container-high": "#e5eadf",
+                    "secondary-container": "#ff8f00",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#d7dbd2",
+                    "on-primary-fixed-variant": "#005312",
+                    "outline-variant": "#bfcaba",
+                    "primary-container": "#2e7d32",
+                    "outline": "#707a6c",
+                    "on-tertiary-container": "#bdfff1",
+                    "tertiary-container": "#097c6e",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#181d17",
+                    "inverse-surface": "#2d322b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "gutter": "16px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "2xl": "48px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "margin-desktop": "64px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "display-lg-mobile": ["Plus Jakarta Sans"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+<!-- TopNavBar Component -->
+<header class="w-full h-16 sticky top-0 bg-surface shadow-sm dark:bg-surface-dim z-50">
+<div class="flex justify-between items-center px-margin-desktop w-full max-w-[1280px] mx-auto h-full">
+<!-- Brand -->
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed flex items-center gap-sm">
+                NearBasket
+            </div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex gap-lg h-full items-center">
+<!-- Active Link: Stores (Matches page intent) -->
+<a class="text-primary font-bold border-b-2 border-primary pb-1 h-full flex items-center font-label-md text-label-md hover:text-primary transition-colors cursor-pointer active:scale-95 transition-transform" href="#">
+                    Stores
+                </a>
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors cursor-pointer active:scale-95 transition-transform" href="#">
+                    Deals
+                </a>
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors cursor-pointer active:scale-95 transition-transform" href="#">
+                    Orders
+                </a>
+</nav>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">location_on</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">account_circle</span>
+<button class="bg-primary-container text-on-primary-container px-4 py-2 rounded-full font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all flex items-center gap-sm">
+<span class="material-symbols-outlined">shopping_cart</span>
+                    Cart
+                </button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-[1280px] mx-auto px-margin-desktop py-xl flex flex-col gap-xl">
+<!-- Store Banner -->
+<section class="w-full h-[320px] rounded-xl overflow-hidden relative shadow-sm group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A wide, high-quality photograph of a bright, clean local farmer's market grocery aisle. Sunlight streams through large front windows, illuminating baskets of fresh, colorful produce. The scene embodies a modern minimalist aesthetic with a focus on tactile freshness and neighborhood trust, featuring soft natural lighting and a warm, welcoming atmosphere." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBoYZwQTCF5T0IEs0FLDLPSbU1cix3i5pVUO9irAiJ6CPwdpklsAyTzmuws1XatRFRjZ0fOcw0NYpFMYutBM3EstUixeh9acTPlt-TUUoFrrHKbnz_j87ubxBG2Oj9mumu0MJ2k1QhD-2QQ0aY_k63ZMFTtNM70x01oQWTSP0ukTpusriotMlMiZxQoW_r95_nO5qfFk5ZSRKLUj0E4eqhUbHszzuB-cGAn91ikNj_zsdgr-ormObR1')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-lg w-full flex items-end gap-lg">
+<img class="w-24 h-24 rounded-full border-4 border-surface shadow-md object-cover bg-surface" data-alt="A clean, minimalist circular logo for a local grocery store named Green Valley Market. It features a stylized green leaf motif on a crisp white background. The design is simple, trustworthy, and modern, fitting a high-end neighborhood fresh food market." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDACYqjE9S16tjsT1GowTpCcKDNdBOnQr3F33vuZx6EAlupSSfCoAoen5NmpKj5IjHTqmU9_KppExzFBRXA9BzeLEQwN517D2_uvJ27StMOR6qcLt3ju8KHlLDao2o2ZyMJ1ai456kdOtSAj1h8Tlm1IAlKff4M6foQfKIrMpJ68rMkbgHMtkCGf51lmLAPU3prt7aj59wuH4rbjVv8vDdJSmW-u7vs_DPlWVjH7WRdZ-f-AT_RlLgn">
+<div class="flex flex-col gap-xs text-white pb-2">
+<h1 class="font-display-lg text-display-lg text-white">Green Valley Market</h1>
+<div class="flex items-center gap-md font-label-md text-label-md text-white/90">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span> 4.8 (340 reviews)</span>
+<span class="">•</span>
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined">map</span> 1.2km away</span>
+<span class="">•</span>
+<span class="bg-primary/20 text-primary-fixed px-2 py-1 rounded-sm backdrop-blur-sm border border-primary/30 flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-primary-fixed animate-pulse"></span> Open
+                        </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Store Layout Grid -->
+<div class="grid grid-cols-12 gap-xl relative items-start">
+<!-- Left Sidebar: Filters -->
+<aside class="col-span-3 sticky top-[100px] flex flex-col gap-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Categories</h3>
+<nav class="flex flex-col gap-sm">
+<a class="bg-secondary-container text-on-secondary-container px-md py-sm rounded-xl font-label-md text-label-md font-bold transition-colors" href="#">All</a>
+<a class="text-on-surface-variant hover:bg-surface-variant px-md py-sm rounded-xl font-label-md text-label-md transition-colors" href="#">Fresh Fruits</a>
+<a class="text-on-surface-variant hover:bg-surface-variant px-md py-sm rounded-xl font-label-md text-label-md transition-colors" href="#">Vegetables</a>
+<a class="text-on-surface-variant hover:bg-surface-variant px-md py-sm rounded-xl font-label-md text-label-md transition-colors" href="#">Dairy &amp; Eggs</a>
+<a class="text-on-surface-variant hover:bg-surface-variant px-md py-sm rounded-xl font-label-md text-label-md transition-colors" href="#">Bakery</a>
+</nav>
+</aside>
+<!-- Main Area: Product Grid -->
+<section class="col-span-6 grid grid-cols-2 gap-lg">
+<!-- Product Card 1 -->
+<article class="bg-surface rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col group hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-shadow">
+<div class="h-48 w-full bg-surface-container relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up, high-resolution product shot of a bunch of bright red organic apples resting in a woven basket. The lighting is soft and natural, casting delicate ambient shadows on a clean white background. The image evokes a sense of tactile freshness, quality, and local neighborhood farming." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWg1ziXUr6iswuXCFHwGj8NwsrgxvAgzCOAayTpItMPy3EAjPMDJuGJGFE6_QxNTB5omRolQAYVu7-vyfOvB6bHmyD-nKhhgcYFsZYSeXTSWOZr6BE38KYfowRqHFHL-dTwxrD_-Vd9NnH1_y5tOpIAKQt0IeLZ_dBbBIZpBFRRwxGdpRmC2UZBa2gtcAPssLOe_P7nPI5OwpL7XcLhPUry872dfmpZGSy0zkPX-gY1ujedY6pOQDY">
+</div>
+<div class="p-md flex flex-col flex-grow gap-sm">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface line-clamp-1">Organic Red Apples</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">1 kg</p>
+</div>
+<div class="mt-auto flex justify-between items-center pt-sm">
+<span class="font-headline-md text-headline-md text-primary">Rs. 4.99</span>
+<button class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:bg-surface-tint hover:text-white active:scale-95 transition-all shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Product Card 2 -->
+<article class="bg-surface rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col group hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-shadow">
+<div class="h-48 w-full bg-surface-container relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up product photo of a vibrant bunch of fresh green kale. The leaves are crisp and detailed, resting on a stark, minimalist white surface. Soft, diffused lighting highlights the deep green hues and creates gentle ambient shadows, emphasizing farm-fresh quality and healthy living." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAv-mxiMiFWmWzyaNKjo4_t-MPyOb7meKqhLW-r5F3R_K-iPU_npz28MTr-odAQRZgo2gSLaAavV6GQYLcZ4_ahstEToDPeBqKUxlNw36_EBYa0nCpxGHfWFhcozDELL4q_lsx4FCaVCLUJp8LfJEUg7nVgBwxZ03mGBTrRCQtf1jYlXQuwcWrLXpAeKsnJgVleGE8czx8LKA0jbSpCW5AxWQuuM7DJuB5GkSmJjJr_jk3xWkGyXiOg">
+</div>
+<div class="p-md flex flex-col flex-grow gap-sm">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface line-clamp-1">Fresh Kale Bunch</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">1 bunch</p>
+</div>
+<div class="mt-auto flex justify-between items-center pt-sm">
+<span class="font-headline-md text-headline-md text-primary">Rs. 2.49</span>
+<button class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:bg-surface-tint hover:text-white active:scale-95 transition-all shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Product Card 3 -->
+<article class="bg-surface rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col group hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-shadow">
+<div class="h-48 w-full bg-surface-container relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A beautifully lit, high-quality image of a rustic artisan sourdough bread loaf. The crust is golden brown and textured. It sits on a simple wooden cutting board against a bright, airy white background. The aesthetic is clean, inviting, and speaks to local bakery craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1SP_OwVzsBst91X6MKSp9fFSveMTPrHueGnoYm3tdEb_tOyuLD8IRZEFJCGq1-0dagw6N2Ie8L6x128Ara4LEcmT1QPjESlUAjRZJrBemmDNi2_NnJCycO7jezTHTST6sFHePMzdNKR8DlYiJRoL4nIkG1qpsCooDGsn12a1_Q_dMaSBkbBaJAwr0of22PQq9UiSxIDLpkEDwhQqs0i6Wi8jzqK-hvSqnwZf7sxi_rSB21ZJ_vt7g">
+</div>
+<div class="p-md flex flex-col flex-grow gap-sm">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface line-clamp-1">Artisan Sourdough</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">1 loaf</p>
+</div>
+<div class="mt-auto flex justify-between items-center pt-sm">
+<span class="font-headline-md text-headline-md text-primary">Rs. 5.50</span>
+<button class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:bg-surface-tint hover:text-white active:scale-95 transition-all shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</article>
+</section>
+<!-- Right Sidebar: Cart Summary -->
+<aside class="col-span-3 sticky top-[100px]">
+<div class="bg-surface rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] p-lg flex flex-col gap-lg border border-outline-variant/20">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-sm border-b border-surface-container-high pb-sm">
+<span class="material-symbols-outlined">shopping_basket</span>
+                        Your Cart
+                    </h3>
+<div class="flex flex-col gap-md">
+<!-- Cart Item -->
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Organic Red Apples</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">1 kg x 1</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-bold">Rs. 4.99</span>
+</div>
+<!-- Cart Item -->
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Artisan Sourdough</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">1 loaf x 2</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-bold">Rs. 11.00</span>
+</div>
+</div>
+<div class="border-t border-surface-container-high pt-md mt-sm flex flex-col gap-sm">
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Subtotal</span>
+<span class="font-label-md text-label-md text-on-surface">Rs. 15.99</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Service Fee</span>
+<span class="font-label-md text-label-md text-on-surface">Rs. 1.50</span>
+</div>
+<div class="flex justify-between items-center mt-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Total</span>
+<span class="font-headline-sm text-headline-sm text-primary">Rs. 17.49</span>
+</div>
+</div>
+<button class="w-full py-md mt-sm rounded-full bg-primary text-on-primary font-label-md text-label-md hover:bg-surface-tint active:scale-95 transition-all shadow-sm">
+                        Proceed to Checkout
+                    </button>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="w-full py-xl bg-surface-container dark:bg-surface-container-high mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-start px-margin-desktop w-full max-w-[1280px] mx-auto gap-xl">
+<!-- Brand / Copyright -->
+<div class="flex flex-col gap-sm">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">NearBasket</span>
+<span class="font-body-md text-body-md font-label-sm text-label-sm text-on-surface-variant">
+                    © 2026 NearBasket. Your Helpful Neighbor.
+                </span>
+</div>
+<!-- Links -->
+<nav class="flex flex-wrap gap-lg font-body-md text-body-md font-label-sm text-label-sm text-on-surface-variant">
+<a class="hover:underline hover:text-primary transition-all" href="#">About Us</a>
+<a class="hover:underline hover:text-primary transition-all" href="#">Sell on NearBasket</a>
+<a class="hover:underline hover:text-primary transition-all" href="#">Download App</a>
+<a class="hover:underline hover:text-primary transition-all" href="#">Privacy Policy</a>
+</nav>
+</div>
+</footer>
+
+
+
+
+</body></html>
+
+<!-- Vendor Dashboard - Desktop -->
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Shop Manager - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#ebefe5",
+                    "primary": "#0d631b",
+                    "surface-tint": "#1b6d24",
+                    "surface-container-highest": "#e0e4da",
+                    "on-secondary-container": "#623400",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb77a",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#97f3e2",
+                    "secondary": "#8f4e00",
+                    "on-surface-variant": "#40493d",
+                    "on-primary-fixed": "#002204",
+                    "inverse-on-surface": "#eef2e8",
+                    "on-error": "#ffffff",
+                    "tertiary": "#006156",
+                    "on-surface": "#181d17",
+                    "primary-fixed-dim": "#88d982",
+                    "on-tertiary-fixed-variant": "#005047",
+                    "on-secondary-fixed-variant": "#6d3a00",
+                    "on-primary-container": "#cbffc2",
+                    "inverse-primary": "#88d982",
+                    "surface-container-low": "#f1f5eb",
+                    "primary-fixed": "#a3f69c",
+                    "background": "#f7fbf0",
+                    "surface-bright": "#f7fbf0",
+                    "surface-variant": "#e0e4da",
+                    "surface": "#f7fbf0",
+                    "tertiary-fixed-dim": "#7ad7c6",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#ffdcc2",
+                    "on-tertiary-fixed": "#00201b",
+                    "on-secondary-fixed": "#2e1500",
+                    "surface-container-high": "#e5eadf",
+                    "secondary-container": "#ff8f00",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#d7dbd2",
+                    "on-primary-fixed-variant": "#005312",
+                    "outline-variant": "#bfcaba",
+                    "primary-container": "#2e7d32",
+                    "outline": "#707a6c",
+                    "on-tertiary-container": "#bdfff1",
+                    "tertiary-container": "#097c6e",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#181d17",
+                    "inverse-surface": "#2d322b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "gutter": "16px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "2xl": "48px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "margin-desktop": "64px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "display-lg-mobile": ["Plus Jakarta Sans"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .ambient-shadow { box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.04); }
+        .lift-shadow { box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.08); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+    </style>
+</head>
+<body class="bg-background text-on-background flex min-h-screen">
+<!-- SideNavBar (Shared Component) -->
+<nav class="bg-surface-container-low dark:bg-surface-container-lowest text-primary dark:text-primary-fixed-dim font-label-md text-label-md h-full w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant flex flex-col p-md space-y-sm z-50">
+<!-- Header -->
+<div class="flex items-center gap-md p-sm mb-lg">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden shrink-0">
+<img alt="Vendor Shop Logo" class="w-full h-full object-cover" data-alt="A warm, inviting logo illustration for a local neighborhood grocery store, featuring a stylized basket of fresh produce in vibrant greens and earthy browns on a light background, clean minimal vector style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2t0Xb_1Gk6eaRuei-i_18Jk6YgZE_aMXFCb2yFbVapZQ_P60kXii-iKwl42ZRfKN5cE7Czo-KJUvBx91l72Z0d6t48QmLBcN4xGa0lNJezIQsFfM4npFy27gDckHkrkuDEF2p1a-wfRbff_FQuzDGp4me5_rDMUZ1SwbAu95JxFDy0qLRu0Dfjv8VayBYu6SvkPX-LBKXETLZCCt4R41HcF6ORJCGX8KoOUDcRKrAkXfCdN3Tamsm">
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">Vendor Hub</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Manage your shop</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 space-y-xs">
+<!-- Active: Dashboard -->
+<a class="flex items-center gap-md p-md bg-secondary-container text-on-secondary-container font-bold rounded-xl active:scale-98 duration-150" href="#">
+<span class="material-symbols-outlined fill">dashboard</span>
+                Dashboard
+            </a>
+<!-- Inactive -->
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-variant rounded-xl transition-colors active:scale-98 duration-150" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+                Inventory
+            </a>
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-variant rounded-xl transition-colors active:scale-98 duration-150" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+                Orders
+            </a>
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-variant rounded-xl transition-colors active:scale-98 duration-150" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</div>
+<!-- CTA & Footer -->
+<div class="mt-auto pt-lg space-y-md border-t border-outline-variant">
+<button class="w-full py-sm px-md bg-primary-container text-on-primary-container font-label-md text-label-md rounded-full font-bold hover:bg-surface-tint transition-colors">
+                Add New Product
+            </button>
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-variant rounded-xl transition-colors active:scale-98 duration-150" href="#">
+<span class="material-symbols-outlined">help</span>
+                Help Center
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col pl-64 w-full">
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-surface dark:bg-surface-dim text-primary dark:text-primary-fixed-dim font-headline-sm text-headline-sm w-full h-16 sticky top-0 bg-surface shadow-sm flex justify-between items-center px-lg w-full z-40">
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">
+                Shop Manager
+            </div>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-xs text-primary bg-primary-container/20 px-sm py-xs rounded-full cursor-pointer hover:bg-surface-container-high transition-all">
+<span class="w-2 h-2 rounded-full bg-primary block"></span>
+<span class="font-label-sm text-label-sm">Online</span>
+</div>
+<div class="flex items-center gap-sm border-l border-outline-variant pl-md ml-sm">
+<button class="text-on-surface-variant hover:bg-surface-container-high rounded-full p-2 transition-all cursor-pointer flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-high rounded-full p-2 transition-all cursor-pointer flex items-center justify-center">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-high rounded-full p-2 transition-all cursor-pointer font-label-md text-label-md ml-sm font-medium">
+                        Profile
+                    </button>
+</div>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<main class="p-xl space-y-xl max-w-[1280px] w-full mx-auto">
+<!-- Headline -->
+<section>
+<h2 class="font-display-lg text-display-lg text-on-surface">Welcome back, Sharma General Store</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-sm">Here's what's happening in your neighborhood market today.</p>
+</section>
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<!-- Card 1: Active Orders -->
+<div class="bg-surface-container-lowest rounded-xl p-lg ambient-shadow border border-surface-variant hover:lift-shadow transition-shadow cursor-pointer flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<div class="p-sm bg-tertiary-container/20 rounded-lg text-tertiary">
+<span class="material-symbols-outlined">shopping_cart</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary bg-tertiary-container/10 px-sm py-xs rounded-full">Updated just now</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Active Orders</p>
+<p class="font-headline-md text-headline-md text-on-surface">12</p>
+</div>
+</div>
+<!-- Card 2: Low Stock -->
+<div class="bg-surface-container-lowest rounded-xl p-lg ambient-shadow border border-surface-variant hover:lift-shadow transition-shadow cursor-pointer flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<div class="p-sm bg-error-container rounded-lg text-error">
+<span class="material-symbols-outlined">warning</span>
+</div>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Low Stock Alerts</p>
+<p class="font-headline-md text-headline-md text-error">5 Items</p>
+</div>
+</div>
+<!-- Card 3: Revenue -->
+<div class="bg-surface-container-lowest rounded-xl p-lg ambient-shadow border border-surface-variant hover:lift-shadow transition-shadow cursor-pointer flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<div class="p-sm bg-primary-container/20 rounded-lg text-primary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary bg-primary-container/10 px-sm py-xs rounded-full">+14% vs yesterday</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Today's Revenue</p>
+<p class="font-headline-md text-headline-md text-on-surface">Rs. 1,240</p>
+</div>
+</div>
+</section>
+<!-- Detailed Content Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Recent Orders Table (Takes up 2 cols) -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-xl ambient-shadow border border-surface-variant overflow-hidden flex flex-col">
+<div class="p-lg border-b border-surface-variant flex justify-between items-center bg-surface">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Recent Orders</h3>
+<button class="font-label-md text-label-md text-primary hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto flex-1 p-lg">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-surface-variant text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-md font-medium">Order ID</th>
+<th class="py-md font-medium">Customer Name</th>
+<th class="py-md font-medium">Items</th>
+<th class="py-md font-medium">Total</th>
+<th class="py-md font-medium text-right">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface">
+<tr class="border-b border-surface-variant hover:bg-surface-container-low transition-colors">
+<td class="py-md font-medium text-primary">#NB-8492</td>
+<td class="py-md">Priya Patel</td>
+<td class="py-md text-on-surface-variant">4 items</td>
+<td class="py-md font-medium">Rs. 34.50</td>
+<td class="py-md text-right">
+<span class="inline-flex items-center px-sm py-xs rounded-full bg-secondary-container/30 text-secondary font-label-sm text-label-sm">
+                                            Pending
+                                        </span>
+</td>
+</tr>
+<tr class="border-b border-surface-variant hover:bg-surface-container-low transition-colors">
+<td class="py-md font-medium text-primary">#NB-8491</td>
+<td class="py-md">Aiden M.</td>
+<td class="py-md text-on-surface-variant">12 items</td>
+<td class="py-md font-medium">Rs. 112.00</td>
+<td class="py-md text-right">
+<span class="inline-flex items-center px-sm py-xs rounded-full bg-tertiary-container/30 text-tertiary-container font-label-sm text-label-sm">
+                                            Accepted
+                                        </span>
+</td>
+</tr>
+<tr class="border-b border-surface-variant hover:bg-surface-container-low transition-colors">
+<td class="py-md font-medium text-primary">#NB-8490</td>
+<td class="py-md">Sarah Jenkins</td>
+<td class="py-md text-on-surface-variant">2 items</td>
+<td class="py-md font-medium">Rs. 18.25</td>
+<td class="py-md text-right">
+<span class="inline-flex items-center px-sm py-xs rounded-full bg-tertiary-container/30 text-tertiary-container font-label-sm text-label-sm">
+                                            Accepted
+                                        </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-md font-medium text-primary">#NB-8489</td>
+<td class="py-md">David L.</td>
+<td class="py-md text-on-surface-variant">6 items</td>
+<td class="py-md font-medium">Rs. 45.90</td>
+<td class="py-md text-right">
+<span class="inline-flex items-center px-sm py-xs rounded-full bg-primary-container/20 text-primary font-label-sm text-label-sm">
+                                            Completed
+                                        </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Popular Products Chart (Takes up 1 col) -->
+<div class="bg-surface-container-lowest rounded-xl ambient-shadow border border-surface-variant flex flex-col overflow-hidden">
+<div class="p-lg border-b border-surface-variant bg-surface">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Popular Products</h3>
+</div>
+<div class="p-lg flex-1 flex flex-col space-y-md">
+<!-- Bar Item 1 -->
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-xs">
+<span class="text-on-surface">Organic Bananas (Bunch)</span>
+<span class="text-on-surface-variant">42 sold</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<!-- Bar Item 2 -->
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-xs">
+<span class="text-on-surface">Local Whole Milk (1 Gallon)</span>
+<span class="text-on-surface-variant">38 sold</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-primary h-2 rounded-full opacity-90" style="width: 75%"></div>
+</div>
+</div>
+<!-- Bar Item 3 -->
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-xs">
+<span class="text-on-surface">Fresh Sourdough Bread</span>
+<span class="text-on-surface-variant">24 sold</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-primary h-2 rounded-full opacity-70" style="width: 50%"></div>
+</div>
+</div>
+<!-- Bar Item 4 -->
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-xs">
+<span class="text-on-surface">Farm Free-Range Eggs (Dozen)</span>
+<span class="text-on-surface-variant">19 sold</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-primary h-2 rounded-full opacity-50" style="width: 40%"></div>
+</div>
+</div>
+<div class="mt-auto pt-md">
+<button class="w-full py-sm border border-outline text-on-surface font-label-md text-label-md rounded-full hover:bg-surface-container transition-colors">
+                                View Full Inventory
+                            </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+
+
+</body></html>
+
+<!-- Inventory Management - Desktop -->
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Vendor Inventory Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#ebefe5",
+                        "primary": "#0d631b",
+                        "surface-tint": "#1b6d24",
+                        "surface-container-highest": "#e0e4da",
+                        "on-secondary-container": "#623400",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb77a",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#97f3e2",
+                        "secondary": "#8f4e00",
+                        "on-surface-variant": "#40493d",
+                        "on-primary-fixed": "#002204",
+                        "inverse-on-surface": "#eef2e8",
+                        "on-error": "#ffffff",
+                        "tertiary": "#006156",
+                        "on-surface": "#181d17",
+                        "primary-fixed-dim": "#88d982",
+                        "on-tertiary-fixed-variant": "#005047",
+                        "on-secondary-fixed-variant": "#6d3a00",
+                        "on-primary-container": "#cbffc2",
+                        "inverse-primary": "#88d982",
+                        "surface-container-low": "#f1f5eb",
+                        "primary-fixed": "#a3f69c",
+                        "background": "#f7fbf0",
+                        "surface-bright": "#f7fbf0",
+                        "surface-variant": "#e0e4da",
+                        "surface": "#f7fbf0",
+                        "tertiary-fixed-dim": "#7ad7c6",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#ffdcc2",
+                        "on-tertiary-fixed": "#00201b",
+                        "on-secondary-fixed": "#2e1500",
+                        "surface-container-high": "#e5eadf",
+                        "secondary-container": "#ff8f00",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d7dbd2",
+                        "on-primary-fixed-variant": "#005312",
+                        "outline-variant": "#bfcaba",
+                        "primary-container": "#2e7d32",
+                        "outline": "#707a6c",
+                        "on-tertiary-container": "#bdfff1",
+                        "tertiary-container": "#097c6e",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#181d17",
+                        "inverse-surface": "#2d322b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "2xl": "48px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "display-lg-mobile": ["Plus Jakarta Sans"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #d7dbd2;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col p-md space-y-sm h-full w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant z-20">
+<div class="mb-xl flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-variant flex-shrink-0">
+<img alt="Vendor Shop Logo" class="w-full h-full object-cover" data-alt="A small circular logo for a local vendor shop, featuring a minimal illustration of a fruit basket in fresh green and warm earth tones, conveying a friendly neighborhood grocery vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmXsyHkPE8ssokdl0sMKT_XEbQNPyQy8cU4VfeZyKc0bQOKmjKmq3bXb737GI8uq3-SrTyQSsXA9TYGt-QuxEIe7x22QX984KWYmB74eBjH7QSRzkV8wHnIpZi9xkaCqtQcs8cQ9fDKRD2jSj21J6952-c_SVpEDRE7d-oCPdoAcayVxegIWyw9Y1J2hS6QmcWSchjQ8PFJxnZ9HLaF9FwHrd5gWmMYcLJ8IPJVLaLe7koRwA7C2IZ">
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary">Vendor Hub</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Manage your shop</p>
+</div>
+</div>
+<div class="flex-1 space-y-xs">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant rounded-xl transition-colors active:scale-98 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container font-bold rounded-xl transition-colors active:scale-98 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant rounded-xl transition-colors active:scale-98 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_bag</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant rounded-xl transition-colors active:scale-98 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+<div class="mt-auto pt-lg border-t border-outline-variant space-y-md">
+<button class="w-full bg-primary-container text-on-primary py-sm rounded-full font-label-md text-label-md hover:opacity-90 transition-opacity flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined">add</span> Add New Product
+            </button>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant rounded-xl transition-colors active:scale-98 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help</span>
+<span class="font-label-md text-label-md">Help Center</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:ml-64 min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-lg w-full h-16 sticky top-0 bg-surface shadow-sm z-10">
+<div class="flex items-center gap-md">
+<button class="md:hidden p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all cursor-pointer">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-on-surface">Shop Manager</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden sm:flex items-center gap-sm text-primary">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-md text-label-md">Online</span>
+</div>
+<div class="flex items-center gap-xs">
+<button class="text-on-surface-variant hover:bg-surface-container-high rounded-full p-2 transition-all cursor-pointer">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-high rounded-full p-2 transition-all cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<button class="flex items-center gap-sm text-primary font-label-md text-label-md hover:bg-surface-container-high py-xs px-sm rounded-lg transition-all cursor-pointer ml-sm border border-outline-variant">
+<span class="">Profile</span>
+</button>
+</div>
+</header>
+<!-- Canvas -->
+<div class="p-margin-mobile md:p-margin-desktop max-w-[1280px] mx-auto w-full flex-1 flex flex-col gap-xl">
+<!-- Page Header & Actions -->
+<div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-md">
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface mb-xs">Inventory</h2>
+<p class="text-on-surface-variant">Manage your products, stock levels, and pricing.</p>
+</div>
+<div class="flex flex-wrap items-center gap-sm w-full lg:w-auto">
+<!-- Search -->
+<div class="relative flex-1 lg:w-64">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-xl pr-md py-sm bg-surface rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container text-label-md outline-none transition-all placeholder:text-outline" placeholder="Search products, SKUs..." type="text">
+</div>
+<!-- Filter -->
+<div class="relative">
+<select class="appearance-none bg-surface border border-outline-variant rounded-lg pl-md pr-xl py-sm font-label-md text-label-md text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none cursor-pointer">
+<option>All Categories</option>
+<option>Produce</option>
+<option>Dairy &amp; Eggs</option>
+<option>Bakery</option>
+<option>Pantry</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+<!-- Secondary Action -->
+<button class="hidden sm:flex items-center gap-xs px-md py-sm border border-primary-container text-primary-container rounded-full font-label-md text-label-md hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">upload_file</span>
+                        Bulk Import
+                    </button>
+<!-- Primary Action Mobile -->
+<button class="sm:hidden w-full flex justify-center items-center gap-xs px-md py-sm bg-primary-container text-on-primary rounded-full font-label-md text-label-md hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        New Product
+                    </button>
+</div>
+</div>
+<!-- Data Table Card -->
+<div class="bg-surface rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] overflow-hidden flex-1 flex flex-col border border-surface-variant">
+<div class="overflow-x-auto custom-scrollbar flex-1">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="border-b border-surface-variant bg-surface-container-low">
+<th class="p-md font-label-sm text-label-sm text-on-surface-variant w-16">Image</th>
+<th class="p-md font-label-sm text-label-sm text-on-surface-variant">Product Name</th>
+<th class="p-md font-label-sm text-label-sm text-on-surface-variant">SKU</th>
+<th class="p-md font-label-sm text-label-sm text-on-surface-variant">Category</th>
+<th class="p-md font-label-sm text-label-sm text-on-surface-variant">Price</th>
+<th class="p-md font-label-sm text-label-sm text-on-surface-variant w-40">Stock Level</th>
+<th class="p-md font-label-sm text-label-sm text-on-surface-variant">Status</th>
+<th class="p-md font-label-sm text-label-sm text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant">
+<!-- Normal Row -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="p-md">
+<div class="w-12 h-12 rounded bg-surface-variant overflow-hidden">
+<img alt="Organic Asparagus" class="w-full h-full object-cover" data-alt="A close-up shot of a bundle of fresh, bright green organic asparagus spears tied with twine, sitting on a rustic wooden table with soft, natural lighting highlighting their freshness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHlu5mvPklnDd--G5ecV9BPYqYfGXYfRvopTlcmDWFXmbF0FpcttZNKnEsOYZccH-ehbd8wyug6tES3etzMqm-kysIJbuMqWHBNhXYOESQKJ43XarlLLCkk4wYDiB8muiwwJl2yNNplT9LE93ftQJEzXpxV0jF-NGDTi_bPHs549EBFGTlTsagRxo1cwzHpZk7Dfv5U7e74lU9Mw0wH3bjgdIggG8BxUu4y79b9kAr-XhbhPRynCvt">
+</div>
+</td>
+<td class="p-md">
+<div class="font-label-md text-label-md text-on-surface font-semibold">Organic Asparagus</div>
+<div class="text-[12px] text-on-surface-variant mt-0.5">Local farm</div>
+</td>
+<td class="p-md font-label-md text-label-md text-outline">VEG-001</td>
+<td class="p-md font-label-md text-label-md text-on-surface">Produce</td>
+<td class="p-md font-label-md text-label-md text-primary font-semibold">Rs. 4.99</td>
+<td class="p-md">
+<div class="flex items-center justify-between border border-outline-variant rounded-lg p-1 w-24 bg-surface">
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[16px]">remove</span></button>
+<span class="font-label-md text-label-md text-on-surface px-1">45</span>
+<button class="w-6 h-6 rounded flex items-center justify-center text-primary-container hover:bg-primary-container hover:text-on-primary transition-colors"><span class="material-symbols-outlined text-[16px]">add</span></button>
+</div>
+</td>
+<td class="p-md">
+<span class="inline-flex items-center px-2 py-1 rounded text-[12px] font-semibold bg-primary-container/10 text-primary-container">
+                                        Active
+                                    </span>
+</td>
+<td class="p-md text-right">
+<button class="p-1.5 text-on-surface-variant hover:text-primary transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-error transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</td>
+</tr>
+<!-- Low Stock Row -->
+<tr class="bg-error-container/20 hover:bg-error-container/30 transition-colors group">
+<td class="p-md">
+<div class="w-12 h-12 rounded bg-surface-variant overflow-hidden">
+<img alt="Artisan Sourdough" class="w-full h-full object-cover" data-alt="A rustic loaf of sourdough bread with a crispy, flour-dusted crust on a white cutting board. Warm, inviting bakery lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx0aIPf3j_ouietrKT7KW2T6HWgd4eSKIRTvGicnCDPbjA8jMsq5jsLqmya_WNOjUdMHM3vImaFaT2dTiAyNTRYGaJJeYcx-PW7sT-axTMk1PGT1r6XRcp492foBPjZSrdqsuDaz_Uftb5vaFsxkdUGVwfWVE291wEKBlUca2v6Pf8pvuYJPLk1a7oN0JntYo69SuLJhvw9reSatkDPuN_8W2C6viiDlwZGCjphPWZc9S-93ItloOz">
+</div>
+</td>
+<td class="p-md">
+<div class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-xs">
+                                        Artisan Sourdough 
+                                        <span class="material-symbols-outlined text-[16px] text-error" title="Low Stock">warning</span>
+</div>
+<div class="text-[12px] text-on-surface-variant mt-0.5">Fresh baked daily</div>
+</td>
+<td class="p-md font-label-md text-label-md text-outline">BAK-042</td>
+<td class="p-md font-label-md text-label-md text-on-surface">Bakery</td>
+<td class="p-md font-label-md text-label-md text-primary font-semibold">Rs. 6.50</td>
+<td class="p-md">
+<div class="flex items-center justify-between border border-error/30 rounded-lg p-1 w-24 bg-surface">
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[16px]">remove</span></button>
+<span class="font-label-md text-label-md text-error font-bold px-1">2</span>
+<button class="w-6 h-6 rounded flex items-center justify-center text-primary-container hover:bg-primary-container hover:text-on-primary transition-colors"><span class="material-symbols-outlined text-[16px]">add</span></button>
+</div>
+</td>
+<td class="p-md">
+<span class="inline-flex items-center px-2 py-1 rounded text-[12px] font-semibold bg-[#ff8f00]/10 text-[#ff8f00]">
+                                        Low Stock
+                                    </span>
+</td>
+<td class="p-md text-right">
+<button class="p-1.5 text-on-surface-variant hover:text-primary transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-error transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</td>
+</tr>
+<!-- Normal Row -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="p-md">
+<div class="w-12 h-12 rounded bg-surface-variant overflow-hidden flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">image</span>
+</div>
+</td>
+<td class="p-md">
+<div class="font-label-md text-label-md text-on-surface font-semibold">Local Honey (16oz)</div>
+<div class="text-[12px] text-on-surface-variant mt-0.5">Wildflower blend</div>
+</td>
+<td class="p-md font-label-md text-label-md text-outline">PAN-112</td>
+<td class="p-md font-label-md text-label-md text-on-surface">Pantry</td>
+<td class="p-md font-label-md text-label-md text-primary font-semibold">Rs. 12.00</td>
+<td class="p-md">
+<div class="flex items-center justify-between border border-outline-variant rounded-lg p-1 w-24 bg-surface">
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[16px]">remove</span></button>
+<span class="font-label-md text-label-md text-on-surface px-1">18</span>
+<button class="w-6 h-6 rounded flex items-center justify-center text-primary-container hover:bg-primary-container hover:text-on-primary transition-colors"><span class="material-symbols-outlined text-[16px]">add</span></button>
+</div>
+</td>
+<td class="p-md">
+<span class="inline-flex items-center px-2 py-1 rounded text-[12px] font-semibold bg-outline-variant/30 text-on-surface-variant">
+                                        Draft
+                                    </span>
+</td>
+<td class="p-md text-right">
+<button class="p-1.5 text-on-surface-variant hover:text-primary transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:text-error transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="border-t border-surface-variant p-md flex items-center justify-between bg-surface">
+<span class="text-[14px] text-on-surface-variant">Showing 1-10 of 42 products</span>
+<div class="flex items-center gap-xs">
+<button class="p-1 rounded text-outline hover:bg-surface-container-high transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="flex gap-1">
+<button class="w-8 h-8 rounded bg-primary-container text-on-primary font-label-sm flex items-center justify-center">1</button>
+<button class="w-8 h-8 rounded hover:bg-surface-container-high text-on-surface-variant font-label-sm flex items-center justify-center transition-colors">2</button>
+<button class="w-8 h-8 rounded hover:bg-surface-container-high text-on-surface-variant font-label-sm flex items-center justify-center transition-colors">3</button>
+<span class="w-8 h-8 flex items-center justify-center text-outline">...</span>
+<button class="w-8 h-8 rounded hover:bg-surface-container-high text-on-surface-variant font-label-sm flex items-center justify-center transition-colors">5</button>
+</div>
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+
+</body></html>
