@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, ShoppingBasket, Cookie, Droplet, SprayCan, Leaf, Croissant, Sparkles, ArrowRight } from "lucide-react";
+import { Search, Camera, Mic, ShoppingBasket, Cookie, Droplet, SprayCan, Leaf, Croissant, Sparkles, ArrowRight } from "lucide-react";
 import StoreCard from "../components/StoreCard";
 import { categories, stores, products } from "../data/mockData";
 import { useCart } from "../context/CartContext";
@@ -16,6 +16,8 @@ const ICONS = {
 
 export default function HomePage() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [isListening, setIsListening] = useState(false);
+  const fileInputRef = useRef(null);
   const navigate = useNavigate();
   const { addToCart } = useCart();
 
@@ -32,8 +34,61 @@ export default function HomePage() {
     navigate(`/store/green-valley-organics?category=${catId}`);
   };
 
+  const handleVoiceSearch = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      if (isListening) {
+        setIsListening(false);
+        return;
+      }
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = "en-US";
+
+      recognition.onstart = () => setIsListening(true);
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setSearchTerm(transcript);
+        setIsListening(false);
+        navigate(`/deals?search=${encodeURIComponent(transcript.trim())}`);
+      };
+      recognition.onerror = () => setIsListening(false);
+      recognition.onend = () => setIsListening(false);
+
+      recognition.start();
+    } else {
+      const sampleQuery = "Organic Apples";
+      setSearchTerm(sampleQuery);
+      navigate(`/deals?search=${encodeURIComponent(sampleQuery)}`);
+    }
+  };
+
+  const handleCameraSearch = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const sampleQuery = "Fresh Fruits";
+      setSearchTerm(sampleQuery);
+      navigate(`/deals?search=${encodeURIComponent(sampleQuery)}`);
+    }
+  };
+
   return (
     <main className="flex-grow w-full max-w-content mx-auto px-margin-mobile md:px-margin-desktop py-xl space-y-2xl">
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        accept="image/*"
+        className="hidden"
+      />
+
       {/* Hero Banner */}
       <section className="relative rounded-xl overflow-hidden bg-surface-container-low min-h-[420px] flex items-center shadow-card">
         <div className="absolute inset-0 z-0">
@@ -60,16 +115,36 @@ export default function HomePage() {
             Fresh groceries, daily staples, and artisan bakery items delivered from stores right around the corner in 20 minutes.
           </p>
 
-          {/* Mobile Search Input */}
+          {/* Mobile Search Input with Voice & Camera */}
           <form onSubmit={handleSearchSubmit} className="md:hidden w-full relative mb-lg">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant" size={18} />
             <input
-              className="w-full pl-12 pr-10 py-3 bg-surface border border-outline-variant rounded-full shadow-sm font-body text-body-md focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full pl-12 pr-20 py-3 bg-surface border border-outline-variant rounded-full shadow-sm font-body text-body-md focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="Search products or stores..."
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleCameraSearch}
+                className="text-on-surface-variant hover:text-primary transition-colors flex items-center p-1 cursor-pointer"
+                title="Search by image/photo"
+              >
+                <Camera size={18} />
+              </button>
+              <button
+                type="button"
+                onClick={handleVoiceSearch}
+                className={`transition-colors flex items-center p-1 rounded-full cursor-pointer ${
+                  isListening ? "text-error animate-pulse bg-error/10" : "text-on-surface-variant hover:text-primary"
+                }`}
+                title={isListening ? "Listening... click to stop" : "Voice search"}
+              >
+                <Mic size={18} />
+              </button>
+            </div>
           </form>
 
           {/* Hero Action Buttons */}

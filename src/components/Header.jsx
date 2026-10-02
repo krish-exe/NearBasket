@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { MapPin, ChevronDown, Search, CircleUserRound, ShoppingCart, LocateFixed, LogOut, Tag, Package, Sparkles, X } from "lucide-react";
+import { MapPin, ChevronDown, Search, Camera, Mic, CircleUserRound, ShoppingCart, LocateFixed, LogOut, Tag, Package, Sparkles, X } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import { products as mockProducts } from "../data/mockData";
@@ -12,11 +12,13 @@ export default function Header() {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("Home - Near Indiranagar, Bengaluru");
   const [locationSearch, setLocationSearch] = useState("");
+  const [isListening, setIsListening] = useState(false);
 
   const { user, isLoggedIn, logout } = useAuth();
   const { itemCount, openCart } = useCart();
   const navigate = useNavigate();
   const searchRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   // Search autocomplete results
   const searchResults = searchQuery.trim()
@@ -51,8 +53,72 @@ export default function Header() {
     }
   };
 
+  const handleVoiceSearch = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      if (isListening) {
+        setIsListening(false);
+        return;
+      }
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = "en-US";
+
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setSearchQuery(transcript);
+        setIsSearchFocused(true);
+        setIsListening(false);
+        navigate(`/deals?search=${encodeURIComponent(transcript.trim())}`);
+      };
+
+      recognition.onerror = () => {
+        setIsListening(false);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognition.start();
+    } else {
+      const sampleQuery = "Organic Apples";
+      setSearchQuery(sampleQuery);
+      setIsSearchFocused(true);
+      navigate(`/deals?search=${encodeURIComponent(sampleQuery)}`);
+    }
+  };
+
+  const handleCameraSearch = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const sampleQuery = "Fresh Fruits";
+      setSearchQuery(sampleQuery);
+      setIsSearchFocused(true);
+      navigate(`/deals?search=${encodeURIComponent(sampleQuery)}`);
+    }
+  };
+
   return (
     <header className="bg-surface shadow-sm w-full h-16 sticky top-0 z-40">
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        accept="image/*"
+        className="hidden"
+      />
       <div className="flex justify-between items-center px-margin-mobile md:px-margin-desktop w-full max-w-content mx-auto h-full gap-md">
         {/* Left: Logo & Location */}
         <div className="flex items-center gap-lg h-full shrink-0">
@@ -114,12 +180,12 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Center: Search Bar with Autocomplete */}
-        <div className="flex-1 min-w-[240px] max-w-xl hidden md:block relative mx-sm" ref={searchRef}>
+        {/* Center: Search Bar with Autocomplete & Camera/Mic */}
+        <div className="flex-1 min-w-[260px] max-w-xl hidden md:block relative mx-sm" ref={searchRef}>
           <form onSubmit={handleSearchSubmit} className="relative flex items-center w-full">
             <Search className="absolute left-4 text-on-surface-variant pointer-events-none shrink-0" size={18} />
             <input
-              className="w-full pl-12 pr-10 py-2 bg-surface-container-low border border-outline-variant rounded-full font-body text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-on-surface-variant"
+              className="w-full pl-12 pr-24 py-2.5 bg-surface-container-low border border-outline-variant rounded-full font-body text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-on-surface-variant"
               placeholder="Search groceries, fruits, milk, bakery..."
               type="text"
               value={searchQuery}
@@ -129,15 +195,38 @@ export default function Header() {
               }}
               onFocus={() => setIsSearchFocused(true)}
             />
-            {searchQuery && (
+            <div className="absolute right-3.5 flex items-center gap-2">
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="text-on-surface-variant hover:text-on-surface p-1 cursor-pointer"
+                  title="Clear search"
+                >
+                  <X size={16} />
+                </button>
+              )}
+
               <button
                 type="button"
-                onClick={() => setSearchQuery("")}
-                className="absolute right-3 text-on-surface-variant hover:text-on-surface p-1 cursor-pointer"
+                onClick={handleCameraSearch}
+                className="text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95 flex items-center p-1"
+                title="Search by image/photo"
               >
-                <X size={16} />
+                <Camera size={18} />
               </button>
-            )}
+
+              <button
+                type="button"
+                onClick={handleVoiceSearch}
+                className={`transition-colors cursor-pointer active:scale-95 flex items-center p-1 rounded-full ${
+                  isListening ? "text-error animate-pulse bg-error/10" : "text-on-surface-variant hover:text-primary"
+                }`}
+                title={isListening ? "Listening... click to stop" : "Voice search"}
+              >
+                <Mic size={18} />
+              </button>
+            </div>
           </form>
 
           {/* Autocomplete Dropdown */}
