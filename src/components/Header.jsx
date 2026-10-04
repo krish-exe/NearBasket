@@ -1,12 +1,50 @@
-import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { MapPin, ChevronDown, Search, Camera, Mic, CircleUserRound, ShoppingCart, LocateFixed, LogOut } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate, useSearchParams, useLocation } from "react-router-dom";
+import { MapPin, ChevronDown, Search, Camera, Mic, MicOff, CircleUserRound, ShoppingCart, LocateFixed, LogOut } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { useVoiceSearch } from "../hooks/useVoiceSearch";
 
 export default function Header() {
   const [locationOpen, setLocationOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
   const { user, isLoggedIn, logout } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get("search") || "");
+
+  // Keep the box in sync if the URL's search param changes elsewhere (e.g. cleared on nav)
+  useEffect(() => {
+    setQuery(searchParams.get("search") || "");
+  }, [searchParams]);
+
+  const runSearch = (text) => {
+    const trimmed = text.trim();
+    if (location.pathname !== "/") navigate("/");
+    const params = new URLSearchParams(trimmed ? { search: trimmed } : {});
+    navigate({ pathname: "/", search: params.toString() });
+  };
+
+  const { isListening, isSupported, error, startListening, stopListening } = useVoiceSearch({
+    onResult: (transcript) => {
+      setQuery(transcript);
+      runSearch(transcript);
+    },
+  });
+
+  const handleMicClick = () => {
+    if (isListening) {
+      stopListening();
+    } else {
+      startListening();
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    runSearch(query);
+  };
 
   return (
     <header className="bg-surface shadow-sm w-full h-16 sticky top-0 z-50">
@@ -54,22 +92,42 @@ export default function Header() {
 
         {/* Center: Search */}
         <div className="flex-grow max-w-2xl hidden md:block">
-          <div className="relative flex items-center w-full">
+          <form onSubmit={handleSubmit} className="relative flex items-center w-full">
             <Search className="absolute left-4 text-on-surface-variant" size={18} />
             <input
               className="w-full pl-12 pr-20 py-2.5 bg-surface-container-low border border-outline-variant rounded-full font-body text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all placeholder:text-on-surface-variant"
-              placeholder="Search for groceries"
+              placeholder={isListening ? "Listening..." : "Search for groceries"}
               type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
             />
             <div className="absolute right-4 flex items-center gap-3">
-              <button className="text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95 flex items-center">
+              <button type="button" className="text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95 flex items-center">
                 <Camera size={18} />
               </button>
-              <button className="text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95 flex items-center">
-                <Mic size={18} />
+              <button
+                type="button"
+                onClick={handleMicClick}
+                aria-label={isListening ? "Stop voice search" : "Search by voice"}
+                title={!isSupported ? "Voice search isn't supported in this browser" : undefined}
+                disabled={!isSupported}
+                className={`flex items-center cursor-pointer active:scale-95 transition-colors ${
+                  isListening
+                    ? "text-error animate-pulse"
+                    : "text-on-surface-variant hover:text-primary"
+                } ${!isSupported ? "opacity-40 cursor-not-allowed" : ""}`}
+              >
+                {isListening ? <MicOff size={18} /> : <Mic size={18} />}
               </button>
             </div>
-          </div>
+          </form>
+          {error && error !== "aborted" && (
+            <p className="absolute mt-1 text-[11px] text-error font-body">
+              {error === "not-allowed"
+                ? "Microphone access denied. Please allow mic permissions."
+                : "Couldn't hear that, try again."}
+            </p>
+          )}
         </div>
 
         {/* Right: Nav & Actions */}
