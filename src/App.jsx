@@ -1,22 +1,31 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import CartDrawer from "./components/CartDrawer";
 import HomePage from "./pages/HomePage";
 import StorePage from "./pages/StorePage";
+import DealsPage from "./pages/DealsPage";
+import OffersPage from "./pages/OffersPage";
+import OrdersPage from "./pages/OrdersPage";
+import CheckoutPage from "./pages/CheckoutPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import VendorLayout from "./components/VendorLayout";
 import DashboardPage from "./pages/vendor/DashboardPage";
 import InventoryPage from "./pages/vendor/InventoryPage";
-import OrdersPage from "./pages/vendor/OrdersPage";
+import VendorOrdersPage from "./pages/vendor/OrdersPage";
 import SettingsPage from "./pages/vendor/SettingsPage";
+
+import { CartProvider } from "./context/CartContext";
+import { OrderProvider } from "./context/OrderContext";
 
 function CustomerShell({ children }) {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       {children}
+      <CartDrawer />
       <Footer />
     </div>
   );
@@ -24,20 +33,28 @@ function CustomerShell({ children }) {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<CustomerShell><HomePage /></CustomerShell>} />
-      <Route path="/store/:storeId" element={<CustomerShell><StorePage /></CustomerShell>} />
-      <Route path="/login" element={<CustomerShell><LoginPage /></CustomerShell>} />
-      <Route path="/signup" element={<CustomerShell><SignupPage /></CustomerShell>} />
+    <CartProvider>
+      <OrderProvider>
+        <Routes>
+          <Route path="/" element={<CustomerShell><HomePage /></CustomerShell>} />
+          <Route path="/store/:storeId" element={<CustomerShell><StorePage /></CustomerShell>} />
+          <Route path="/deals" element={<CustomerShell><DealsPage /></CustomerShell>} />
+          <Route path="/offers" element={<CustomerShell><OffersPage /></CustomerShell>} />
+          <Route path="/orders" element={<CustomerShell><OrdersPage /></CustomerShell>} />
+          <Route path="/checkout" element={<CustomerShell><CheckoutPage /></CustomerShell>} />
+          <Route path="/login" element={<CustomerShell><LoginPage /></CustomerShell>} />
+          <Route path="/signup" element={<CustomerShell><SignupPage /></CustomerShell>} />
 
-      <Route path="/vendor" element={<VendorLayout />}>
-        <Route index element={<DashboardPage />} />
-        <Route path="inventory" element={<InventoryPage />} />
-        <Route path="orders" element={<OrdersPage />} />
-        <Route path="settings" element={<SettingsPage />} />
-      </Route>
+          <Route path="/vendor" element={<VendorLayout />}>
+            <Route index element={<DashboardPage />} />
+            <Route path="inventory" element={<InventoryPage />} />
+            <Route path="orders" element={<VendorOrdersPage />} />
+            <Route path="settings" element={<SettingsPage />} />
+          </Route>
 
-      <Route path="*" element={<CustomerShell><NotFoundPage /></CustomerShell>} />
-    </Routes>
+          <Route path="*" element={<CustomerShell><NotFoundPage /></CustomerShell>} />
+        </Routes>
+      </OrderProvider>
+    </CartProvider>
   );
 }
