@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { useOrders } from "../context/OrderContext";
 
 export default function CheckoutPage() {
-  const { cartItems, subtotal, deliveryFee, appliedOffer, discountAmount, total, clearCart, applyOffer, removeOffer } = useCart();
+  const { cartItems, subtotal, deliveryFee, appliedOffer, discountAmount, offerShortfall, total, clearCart, applyOffer, removeOffer } = useCart();
   const { user } = useAuth();
   const { placeOrder } = useOrders();
   const navigate = useNavigate();
@@ -63,12 +63,14 @@ export default function CheckoutPage() {
     const nextErrors = {};
     if (!form.name.trim()) nextErrors.name = "Full name is required.";
     if (!form.phone.trim()) nextErrors.phone = "Phone number is required.";
+    else if (!/^\d{10}$/.test(form.phone.trim())) nextErrors.phone = "Enter a valid 10-digit phone number.";
     if (!form.address.trim()) nextErrors.address = "Delivery address is required.";
     return nextErrors;
   };
 
   const handleSubmitOrder = (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
     const nextErrors = validate();
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
@@ -90,8 +92,7 @@ export default function CheckoutPage() {
       });
 
       clearCart();
-      setIsSubmitting(false);
-      navigate(`/orders?newOrderId=${placed.id}`);
+      navigate(`/orders?newOrderId=${encodeURIComponent(placed.id)}`, { replace: true });
     }, 600);
   };
 
@@ -133,7 +134,8 @@ export default function CheckoutPage() {
               <div className="space-y-1">
                 <label className="font-label text-label-md text-on-surface-variant">Phone Number *</label>
                 <input
-                  type="text"
+                  type="tel"
+                  inputMode="numeric"
                   value={form.phone}
                   onChange={handleChange("phone")}
                   className={`w-full px-4 py-2.5 bg-surface-container-low border rounded-md font-body text-body-md focus:outline-none focus:ring-2 focus:ring-primary ${
@@ -250,11 +252,13 @@ export default function CheckoutPage() {
                       Offer {appliedOffer.code} Applied
                     </p>
                     <p className="font-body text-body-sm text-on-surface-variant">
-                      Discount: -Rs. {discountAmount.toFixed(2)}
+                      {offerShortfall > 0
+                        ? `Add Rs. ${offerShortfall.toFixed(0)} more to unlock this offer`
+                        : `Discount: -Rs. ${discountAmount.toFixed(2)}`}
                     </p>
                   </div>
                 </div>
-                <button onClick={removeOffer} className="font-label text-label-sm text-error hover:underline">
+                <button type="button" onClick={removeOffer} className="font-label text-label-sm text-error hover:underline">
                   Remove
                 </button>
               </div>

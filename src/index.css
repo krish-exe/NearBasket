@@ -26,3 +26,49 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* Utilities used by components that Tailwind v3 doesn't ship
+   (tailwindcss-animate style classes, blur-xs, shadow-xs, scrollbar-none) */
+@layer utilities {
+  .backdrop-blur-xs {
+    backdrop-filter: blur(2px);
+  }
+  .shadow-xs {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .animate-in {
+    animation: nb-enter 0.25s ease-out both;
+  }
+  .animate-in.slide-in-from-right {
+    animation-name: nb-slide-in-right;
+  }
+  .animate-in.zoom-in-50,
+  .animate-in.zoom-in-95 {
+    animation-name: nb-zoom-in;
+  }
+}
+
+@keyframes nb-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes nb-slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+@keyframes nb-zoom-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-in {
+    animation: none;
+  }
+}

@@ -1,21 +1,31 @@
 import { useState } from "react";
-import { Tag, Copy, Check, Calendar, ArrowRight, ShieldCheck, ShoppingBag } from "lucide-react";
+import { Tag, Copy, Check, Calendar, ArrowRight, ShieldCheck, ShoppingBag, AlertCircle } from "lucide-react";
 import { offers } from "../data/mockData";
 import { useCart } from "../context/CartContext";
 
 export default function OffersPage() {
   const [copiedCode, setCopiedCode] = useState(null);
+  const [feedback, setFeedback] = useState(null); // { code, message }
   const { applyOffer, openCart } = useCart();
 
-  const handleCopyCode = (code) => {
-    navigator.clipboard.writeText(code);
-    setCopiedCode(code);
-    setTimeout(() => setCopiedCode(null), 2000);
+  const handleCopyCode = async (code) => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopiedCode(code);
+      setTimeout(() => setCopiedCode(null), 2000);
+    } catch {
+      setFeedback({ code, message: "Couldn't access the clipboard. Please copy the code manually." });
+    }
   };
 
   const handleApplyOffer = (code) => {
-    applyOffer(code);
-    openCart();
+    const res = applyOffer(code);
+    if (res.success) {
+      setFeedback(null);
+      openCart();
+    } else {
+      setFeedback({ code, message: res.message });
+    }
   };
 
   return (
@@ -112,6 +122,13 @@ export default function OffersPage() {
                   </button>
                 </div>
               </div>
+
+              {feedback?.code === offer.code && (
+                <div className="flex items-center gap-2 text-xs p-2 rounded-md bg-error-container text-on-error-container">
+                  <AlertCircle size={14} className="shrink-0" />
+                  <span>{feedback.message}</span>
+                </div>
+              )}
             </div>
           );
         })}

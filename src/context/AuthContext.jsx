@@ -4,18 +4,30 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
-    const stored = localStorage.getItem("nearbasket_user");
-    return stored ? JSON.parse(stored) : null;
+    try {
+      const stored = localStorage.getItem("nearbasket_user");
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
   });
 
   const login = (userInfo) => {
     setUser(userInfo);
-    localStorage.setItem("nearbasket_user", JSON.stringify(userInfo));
+    try {
+      localStorage.setItem("nearbasket_user", JSON.stringify(userInfo));
+    } catch {
+      // Storage unavailable (private mode); stay logged in for this session only
+    }
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("nearbasket_user");
+    try {
+      localStorage.removeItem("nearbasket_user");
+    } catch {
+      // ignore
+    }
   };
 
   return (

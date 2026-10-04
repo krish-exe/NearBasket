@@ -12,6 +12,7 @@ export default function CartDrawer() {
     deliveryFee,
     appliedOffer,
     discountAmount,
+    offerShortfall,
     total,
     isCartOpen,
     closeCart,
@@ -37,7 +38,13 @@ export default function CartDrawer() {
     if (res.success) setPromoInput("");
   };
 
+  const handleClose = () => {
+    setPromoFeedback(null);
+    closeCart();
+  };
+
   const handleProceedToCheckout = () => {
+    setPromoFeedback(null);
     closeCart();
     if (!isLoggedIn) {
       navigate("/login", { state: { from: "/checkout" } });
@@ -51,7 +58,7 @@ export default function CartDrawer() {
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity duration-300"
-        onClick={closeCart}
+        onClick={handleClose}
       />
 
       {/* Slide-out Drawer */}
@@ -68,7 +75,7 @@ export default function CartDrawer() {
             </div>
           </div>
           <button
-            onClick={closeCart}
+            onClick={handleClose}
             className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-surface-container-high text-on-surface-variant transition-colors cursor-pointer"
           >
             <X size={20} />
@@ -86,7 +93,7 @@ export default function CartDrawer() {
               Explore our fresh produce, bakery goods, and daily essentials.
             </p>
             <button
-              onClick={closeCart}
+              onClick={handleClose}
               className="px-8 py-3 bg-primary text-on-primary font-label text-label-md rounded-full hover:bg-primary-container transition-colors shadow-sm cursor-pointer"
             >
               Start Shopping
@@ -155,7 +162,9 @@ export default function CartDrawer() {
                         Code {appliedOffer.code} Applied
                       </p>
                       <p className="font-body text-body-sm text-on-surface-variant">
-                        Saved Rs. {discountAmount.toFixed(2)}
+                        {offerShortfall > 0
+                          ? `Add Rs. ${offerShortfall.toFixed(0)} more to unlock this offer`
+                          : `Saved Rs. ${discountAmount.toFixed(2)}`}
                       </p>
                     </div>
                   </div>
@@ -230,7 +239,7 @@ export default function CartDrawer() {
 
               <div className="flex gap-md pt-xs">
                 <button
-                  onClick={closeCart}
+                  onClick={handleClose}
                   className="w-1/3 py-3 bg-surface-container-high text-on-surface font-label text-label-md rounded-full hover:bg-surface-container-highest transition-colors cursor-pointer text-center"
                 >
                   Continue Shopping

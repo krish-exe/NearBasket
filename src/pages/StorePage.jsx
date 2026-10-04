@@ -4,6 +4,7 @@ import { Star, Map, Plus, Minus, ShoppingBasket, Search, ArrowRight } from "luci
 import { stores as mockStores, products as mockProducts, categories as globalCategories } from "../data/mockData";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
+import NotFoundPage from "./NotFoundPage";
 
 export default function StorePage() {
   const { storeId } = useParams();
@@ -11,7 +12,7 @@ export default function StorePage() {
   const categoryParam = searchParams.get("category") || "all";
   const highlightedProductId = searchParams.get("product");
 
-  const store = mockStores.find((s) => s.id === storeId) || mockStores[0];
+  const store = mockStores.find((s) => s.id === storeId);
 
   const [activeCategory, setActiveCategory] = useState(categoryParam);
   const [searchTerm, setSearchTerm] = useState("");
@@ -36,12 +37,18 @@ export default function StorePage() {
     }
   }, [categoryParam]);
 
-  // Filter store products
-  const storeProductsList = useMemo(() => {
-    return mockProducts.filter((p) => {
-      // Allow products matching storeId, or default to all if store matching
-      const matchesStore = p.storeId === store.id || store.id === "green-valley-organics";
+  // Everything this store sells, and the categories it actually stocks
+  const allStoreProducts = useMemo(
+    () => (store ? mockProducts.filter((p) => p.storeId === store.id) : []),
+    [store]
+  );
+  const storeCategories = useMemo(
+    () => globalCategories.filter((cat) => cat.id === "all" || allStoreProducts.some((p) => p.categoryId === cat.id)),
+    [allStoreProducts]
+  );
 
+  const storeProductsList = useMemo(() => {
+    return allStoreProducts.filter((p) => {
       const matchesCat =
         activeCategory === "all" ||
         p.categoryId === activeCategory ||
@@ -52,9 +59,9 @@ export default function StorePage() {
         p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         p.category.toLowerCase().includes(searchTerm.toLowerCase());
 
-      return matchesStore && matchesCat && matchesSearch;
+      return matchesCat && matchesSearch;
     });
-  }, [store.id, activeCategory, searchTerm]);
+  }, [allStoreProducts, activeCategory, searchTerm]);
 
   const handleCategorySelect = (catId) => {
     setActiveCategory(catId);
@@ -74,13 +81,7 @@ export default function StorePage() {
     }
   };
 
-  const handleCheckout = () => {
-    if (!isLoggedIn) {
-      navigate("/login", { state: { from: location.pathname } });
-      return;
-    }
-    setOrderPlaced(true);
-  };
+  if (!store) return <NotFoundPage />;
 
   return (
     <main className="flex-grow w-full max-w-content mx-auto px-margin-mobile md:px-margin-desktop py-xl space-y-xl">
@@ -128,7 +129,7 @@ export default function StorePage() {
             Categories
           </h2>
           <div className="flex lg:flex-col gap-sm overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 scrollbar-none">
-            {globalCategories.map((cat) => (
+            {storeCategories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => handleCategorySelect(cat.id)}
@@ -168,7 +169,7 @@ export default function StorePage() {
               </p>
               <button
                 onClick={() => {
-                  setActiveCategory("all");
+                  handleCategorySelect("all");
                   setSearchTerm("");
                 }}
                 className="px-4 py-2 bg-primary text-on-primary font-label text-label-sm rounded-full"
@@ -327,16 +328,9 @@ export default function StorePage() {
           )}
 
           {!isLoggedIn && cartItems.length > 0 && (
-            <p className="font-body text-body-sm text-on-surface-variant mt-md text-center">
+            <p className="font-body text-body-sm text-on-surface-variant text-center">
               Log in to complete your order.
             </p>
-          )}
-
-          {orderPlaced && (
-            <div className="flex items-center gap-2 bg-primary/10 text-primary font-label text-label-md px-4 py-3 rounded-md mt-md">
-              <CheckCircle2 size={18} />
-              Order placed successfully.
-            </div>
           )}
 
           <button

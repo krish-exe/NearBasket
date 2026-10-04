@@ -1,36 +1,72 @@
-import { useState, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
-import { Sparkles, Plus, Check, Search, Tag, Filter } from "lucide-react";
-import { products as allProducts, categories } from "../data/mockData";
+import { useState, useMemo, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { Sparkles, Plus, Check, Search, Tag, Filter, Store } from "lucide-react";
+import { products as allProducts, categories, stores } from "../data/mockData";
 import { useCart } from "../context/CartContext";
+import StoreCard from "../components/StoreCard";
+
+const storeName = (id) => stores.find((s) => s.id === id)?.name || "";
+
+const isDeal = (p) => p.isDeal || p.originalPrice > p.price;
+
+const matchesText = (product, term) => {
+  const q = term.trim().toLowerCase();
+  if (!q) return true;
+  return (
+    product.name.toLowerCase().includes(q) ||
+    product.category.toLowerCase().includes(q) ||
+    storeName(product.storeId).toLowerCase().includes(q)
+  );
+};
 
 export default function DealsPage() {
-  const [searchParams] = useSearchParams();
-  const initialSearch = searchParams.get("search") || "";
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlSearch = searchParams.get("search") || "";
+  const urlCategory = searchParams.get("category") || "all";
+  // Arriving with a search, a category or ?view=all means "find this", not "show discounts"
+  const wantsAll = Boolean(urlSearch) || urlCategory !== "all" || searchParams.get("view") === "all";
 
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [searchTerm, setSearchTerm] = useState(initialSearch);
+  const [selectedCategory, setSelectedCategory] = useState(urlCategory);
+  const [searchTerm, setSearchTerm] = useState(urlSearch);
+  const [dealsOnly, setDealsOnly] = useState(!wantsAll);
   const [addedItemIds, setAddedItemIds] = useState(new Set());
 
   const { addToCart } = useCart();
 
-  // Filter deal products
+  // Follow new searches made from the header while already on this page
+  useEffect(() => {
+    setSearchTerm(urlSearch);
+    setSelectedCategory(urlCategory);
+    if (wantsAll) setDealsOnly(false);
+  }, [urlSearch, urlCategory, wantsAll]);
+
+  const updateParams = (next) => {
+    const params = new URLSearchParams(searchParams);
+    Object.entries(next).forEach(([key, value]) => {
+      if (value && value !== "all") params.set(key, value);
+      else params.delete(key);
+    });
+    setSearchParams(params, { replace: true });
+  };
+
+  const handleCategoryChange = (catId) => {
+    setSelectedCategory(catId);
+    updateParams({ category: catId });
+  };
+
   const dealProducts = useMemo(() => {
     return allProducts.filter((p) => {
-      const isDealProduct = p.isDeal || (p.originalPrice && p.originalPrice > p.price);
-      if (!isDealProduct) return false;
-
-      const matchesCat =
-        selectedCategory === "all" || p.categoryId === selectedCategory;
-
-      const matchesSearch =
-        !searchTerm.trim() ||
-        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.category.toLowerCase().includes(searchTerm.toLowerCase());
-
-      return matchesCat && matchesSearch;
+      if (dealsOnly && !isDeal(p)) return false;
+      const matchesCat = selectedCategory === "all" || p.categoryId === selectedCategory;
+      return matchesCat && matchesText(p, searchTerm);
     });
-  }, [selectedCategory, searchTerm]);
+  }, [selectedCategory, searchTerm, dealsOnly]);
+
+  const matchingStores = useMemo(() => {
+    const q = searchTerm.trim().toLowerCase();
+    if (!q) return [];
+    return stores.filter((s) => s.name.toLowerCase().includes(q));
+  }, [searchTerm]);
 
   const handleAddToCart = (product) => {
     addToCart(product, 1);
@@ -54,7 +90,7 @@ export default function DealsPage() {
             Hot Daily Deals & Discounts
           </div>
           <h1 className="font-display text-display-lg-mobile md:text-display-lg text-white font-bold">
-            Neighborhood Super Deals
+            {dealsOnly ? "Neighborhood Super Deals" : "Browse Products"}
           </h1>
           <p className="font-body text-body-lg text-white/90">
             Save big on fresh produce, dairy, bakery, and everyday pantry staples directly from local vendors.
@@ -72,7 +108,7 @@ export default function DealsPage() {
           {categories.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
+              onClick={() => handleCategoryChange(cat.id)}
               className={`px-4 py-2 rounded-full font-label text-label-md whitespace-nowrap transition-colors cursor-pointer ${
                 selectedCategory === cat.id
                   ? "bg-primary text-on-primary font-bold shadow-sm"
@@ -84,18 +120,45 @@ export default function DealsPage() {
           ))}
         </div>
 
-        {/* Search Input */}
-        <div className="relative min-w-[240px]">
+        {/* Deals-only toggle + Search Input */}
+        <div className="flex items-center gap-md">
+          <label className="flex items-center gap-2 font-label text-label-md text-on-surface whitespace-nowrap cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={dealsOnly}
+              onChange={(e) => setDealsOnly(e.target.checked)}
+              className="accent-primary w-4 h-4"
+            />
+            Deals only
+          </label>
+        <div className="relative min-w-[200px] flex-grow">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant" size={18} />
           <input
             type="text"
             placeholder="Search deals..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            onBlur={() => updateParams({ search: searchTerm.trim() })}
             className="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-full font-body text-body-sm focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
+        </div>
       </section>
+
+      {/* Stores whose name matches the search */}
+      {matchingStores.length > 0 && (
+        <section className="space-y-md">
+          <h2 className="font-display text-headline-sm text-on-surface flex items-center gap-2">
+            <Store size={20} className="text-primary" />
+            Stores matching "{searchTerm.trim()}"
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+            {matchingStores.map((store) => (
+              <StoreCard key={store.id} store={store} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Deals Products Grid */}
       <section>
@@ -104,7 +167,9 @@ export default function DealsPage() {
             <div className="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center mx-auto text-on-surface-variant">
               <Tag size={32} />
             </div>
-            <h3 className="font-display text-headline-sm text-on-surface">No deals match your criteria</h3>
+            <h3 className="font-display text-headline-sm text-on-surface">
+              {dealsOnly ? "No deals match your criteria" : "No products match your search"}
+            </h3>
             <p className="font-body text-body-md text-on-surface-variant max-w-md mx-auto">
               Try changing your category filter or search term to discover available deals.
             </p>
@@ -112,6 +177,7 @@ export default function DealsPage() {
               onClick={() => {
                 setSelectedCategory("all");
                 setSearchTerm("");
+                setSearchParams({}, { replace: true });
               }}
               className="px-6 py-2.5 bg-primary text-on-primary font-label text-label-md rounded-full hover:bg-primary-container transition-colors"
             >
@@ -136,10 +202,12 @@ export default function DealsPage() {
                     <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
                     
                     {/* Deal Badge */}
-                    <div className="absolute top-3 left-3 bg-secondary text-on-secondary font-label text-label-sm font-bold px-3 py-1 rounded-full shadow-sm flex items-center gap-1">
-                      <Tag size={12} />
-                      {product.dealTag || `${discountPct}% OFF`}
-                    </div>
+                    {isDeal(product) && (
+                      <div className="absolute top-3 left-3 bg-secondary text-on-secondary font-label text-label-sm font-bold px-3 py-1 rounded-full shadow-sm flex items-center gap-1">
+                        <Tag size={12} />
+                        {product.dealTag || `${discountPct}% OFF`}
+                      </div>
+                    )}
 
                     <div className="absolute top-3 right-3 bg-surface/90 backdrop-blur-md text-on-surface font-label text-label-sm font-bold px-2.5 py-1 rounded-full border border-outline-variant/30">
                       ★ {product.rating}
@@ -165,13 +233,18 @@ export default function DealsPage() {
                           <span className="font-display text-headline-sm text-primary font-bold">
                             Rs. {product.price}
                           </span>
-                          {product.originalPrice && (
+                          {product.originalPrice > product.price && (
                             <span className="font-body text-body-sm text-on-surface-variant line-through">
                               Rs. {product.originalPrice}
                             </span>
                           )}
                         </div>
-                        <span className="text-[12px] text-on-surface-variant">{product.unit}</span>
+                        <span className="text-[12px] text-on-surface-variant">
+                          {product.unit} •{" "}
+                          <Link to={`/store/${product.storeId}?product=${product.id}`} className="hover:text-primary hover:underline">
+                            {storeName(product.storeId)}
+                          </Link>
+                        </span>
                       </div>
 
                       <button
