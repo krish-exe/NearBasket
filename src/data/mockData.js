@@ -41,6 +41,17 @@ export const stores = [
     image:
       "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop",
   },
+  {
+    id: "punjabi-spice-bazaar",
+    name: "Punjabi Spice Bazaar",
+    rating: 4.7,
+    reviews: 268,
+    distance: "600m away",
+    delivery: "Delivery in 18 mins",
+    status: "open",
+    image:
+      "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=800&auto=format&fit=crop",
+  },
 ];
 
 export const storeProducts = {
@@ -77,6 +88,98 @@ export const storeProducts = {
         price: 5.5,
         image:
           "https://images.unsplash.com/photo-1585478259715-4d3a5f5b8b9a?q=80&w=600&auto=format&fit=crop",
+      },
+    ],
+  },
+  "punjabi-spice-bazaar": {
+    name: "Punjabi Spice Bazaar",
+    rating: 4.7,
+    reviews: 268,
+    distance: "600m away",
+    status: "Open",
+    banner:
+      "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=1600&auto=format&fit=crop",
+    categories: ["All", "Spices", "Pulses & Dals", "Flours & Grains", "Pickles & Oils"],
+    products: [
+      {
+        id: "turmeric-powder",
+        name: "Haldi (Turmeric Powder)",
+        unit: "500 g",
+        price: 3.25,
+        image:
+          "https://images.unsplash.com/photo-1615485500704-8e990f9900f7?q=80&w=600&auto=format&fit=crop",
+      },
+      {
+        id: "garam-masala",
+        name: "Homestyle Garam Masala",
+        unit: "200 g",
+        price: 2.75,
+        image:
+          "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=600&auto=format&fit=crop",
+      },
+      {
+        id: "red-chilli-powder",
+        name: "Kashmiri Red Chilli Powder",
+        unit: "500 g",
+        price: 3.5,
+        image:
+          "https://images.unsplash.com/photo-1583119022894-919a68a3d0e3?q=80&w=600&auto=format&fit=crop",
+      },
+      {
+        id: "cumin-seeds",
+        name: "Whole Cumin Seeds (Jeera)",
+        unit: "250 g",
+        price: 2.1,
+        image:
+          "https://images.unsplash.com/photo-1599909533144-b9dd6fa77ef2?q=80&w=600&auto=format&fit=crop",
+      },
+      {
+        id: "toor-dal",
+        name: "Toor Dal (Split Pigeon Peas)",
+        unit: "1 kg",
+        price: 2.99,
+        image:
+          "https://images.unsplash.com/photo-1585996745192-b0acb1e6f2fc?q=80&w=600&auto=format&fit=crop",
+      },
+      {
+        id: "chana-dal",
+        name: "Chana Dal (Split Chickpeas)",
+        unit: "1 kg",
+        price: 2.6,
+        image:
+          "https://images.unsplash.com/photo-1612257999691-32c7c31de44a?q=80&w=600&auto=format&fit=crop",
+      },
+      {
+        id: "basmati-rice",
+        name: "Premium Basmati Rice",
+        unit: "5 kg",
+        price: 9.99,
+        image:
+          "https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=600&auto=format&fit=crop",
+      },
+      {
+        id: "atta-flour",
+        name: "Whole Wheat Atta",
+        unit: "5 kg",
+        price: 6.49,
+        image:
+          "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600&auto=format&fit=crop",
+      },
+      {
+        id: "mango-pickle",
+        name: "Homemade Mango Pickle",
+        unit: "400 g jar",
+        price: 4.2,
+        image:
+          "https://images.unsplash.com/photo-1596797038530-2c107229654b?q=80&w=600&auto=format&fit=crop",
+      },
+      {
+        id: "mustard-oil",
+        name: "Cold-Pressed Mustard Oil",
+        unit: "1 L",
+        price: 5.75,
+        image:
+          "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=80&w=600&auto=format&fit=crop",
       },
     ],
   },
