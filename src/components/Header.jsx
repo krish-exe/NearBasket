@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { MapPin, ChevronDown, Search, Camera, Mic, CircleUserRound, ShoppingCart, LocateFixed, LogOut, Tag, Package, Sparkles, X } from "lucide-react";
+import { MapPin, ChevronDown, Search, Camera, Mic, MicOff, CircleUserRound, ShoppingCart, LocateFixed, LogOut, Tag, Package, Sparkles, X } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
+import { useVoiceSearch } from "../hooks/useVoiceSearch";
 import { products as mockProducts } from "../data/mockData";
 
 export default function Header() {
@@ -12,7 +13,6 @@ export default function Header() {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("Home - Near Indiranagar, Bengaluru");
   const [locationSearch, setLocationSearch] = useState("");
-  const [isListening, setIsListening] = useState(false);
 
   const { user, isLoggedIn, logout } = useAuth();
   const { itemCount, openCart } = useCart();
@@ -53,44 +53,19 @@ export default function Header() {
     }
   };
 
+  const { isListening, isSupported, error: voiceError, startListening, stopListening } = useVoiceSearch({
+    onResult: (transcript) => {
+      setSearchQuery(transcript);
+      setIsSearchFocused(false);
+      navigate(`/deals?search=${encodeURIComponent(transcript)}`);
+    },
+  });
+
   const handleVoiceSearch = () => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRecognition) {
-      if (isListening) {
-        setIsListening(false);
-        return;
-      }
-      const recognition = new SpeechRecognition();
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.lang = "en-US";
-
-      recognition.onstart = () => {
-        setIsListening(true);
-      };
-
-      recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        setSearchQuery(transcript);
-        setIsSearchFocused(true);
-        setIsListening(false);
-        navigate(`/deals?search=${encodeURIComponent(transcript.trim())}`);
-      };
-
-      recognition.onerror = () => {
-        setIsListening(false);
-      };
-
-      recognition.onend = () => {
-        setIsListening(false);
-      };
-
-      recognition.start();
+    if (isListening) {
+      stopListening();
     } else {
-      const sampleQuery = "Organic Apples";
-      setSearchQuery(sampleQuery);
-      setIsSearchFocused(true);
-      navigate(`/deals?search=${encodeURIComponent(sampleQuery)}`);
+      startListening();
     }
   };
 
@@ -219,15 +194,30 @@ export default function Header() {
               <button
                 type="button"
                 onClick={handleVoiceSearch}
+                disabled={!isSupported}
+                aria-label={isListening ? "Stop voice search" : "Search by voice"}
                 className={`transition-colors cursor-pointer active:scale-95 flex items-center p-1 rounded-full ${
                   isListening ? "text-error animate-pulse bg-error/10" : "text-on-surface-variant hover:text-primary"
-                }`}
-                title={isListening ? "Listening... click to stop" : "Voice search"}
+                } ${!isSupported ? "opacity-40 cursor-not-allowed" : ""}`}
+                title={
+                  !isSupported
+                    ? "Voice search isn't supported in this browser"
+                    : isListening
+                      ? "Listening... click to stop"
+                      : "Voice search"
+                }
               >
-                <Mic size={18} />
+                {isListening ? <MicOff size={18} /> : <Mic size={18} />}
               </button>
             </div>
           </form>
+          {voiceError && voiceError !== "aborted" && voiceError !== "no-speech" && (
+            <p className="absolute mt-1 text-[11px] text-error font-body">
+              {voiceError === "not-allowed"
+                ? "Microphone access denied. Please allow mic permissions."
+                : "Couldn't hear that, try again."}
+            </p>
+          )}
 
           {/* Autocomplete Dropdown */}
           {isSearchFocused && searchQuery.trim().length > 0 && (

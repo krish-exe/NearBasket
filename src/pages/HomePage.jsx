@@ -1,9 +1,10 @@
 import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Camera, Mic, ShoppingBasket, Cookie, Droplet, SprayCan, Leaf, Croissant, Sparkles, ArrowRight } from "lucide-react";
+import { Search, Camera, Mic, MicOff, ShoppingBasket, Cookie, Droplet, SprayCan, Leaf, Croissant, Sparkles, ArrowRight } from "lucide-react";
 import StoreCard from "../components/StoreCard";
 import { categories, stores, products } from "../data/mockData";
 import { useCart } from "../context/CartContext";
+import { useVoiceSearch } from "../hooks/useVoiceSearch";
 
 const ICONS = {
   basket: ShoppingBasket,
@@ -16,7 +17,6 @@ const ICONS = {
 
 export default function HomePage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [isListening, setIsListening] = useState(false);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
   const { addToCart } = useCart();
@@ -34,33 +34,18 @@ export default function HomePage() {
     navigate(`/store/green-valley-organics?category=${catId}`);
   };
 
+  const { isListening, isSupported, startListening, stopListening } = useVoiceSearch({
+    onResult: (transcript) => {
+      setSearchTerm(transcript);
+      navigate(`/deals?search=${encodeURIComponent(transcript)}`);
+    },
+  });
+
   const handleVoiceSearch = () => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRecognition) {
-      if (isListening) {
-        setIsListening(false);
-        return;
-      }
-      const recognition = new SpeechRecognition();
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.lang = "en-US";
-
-      recognition.onstart = () => setIsListening(true);
-      recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        setSearchTerm(transcript);
-        setIsListening(false);
-        navigate(`/deals?search=${encodeURIComponent(transcript.trim())}`);
-      };
-      recognition.onerror = () => setIsListening(false);
-      recognition.onend = () => setIsListening(false);
-
-      recognition.start();
+    if (isListening) {
+      stopListening();
     } else {
-      const sampleQuery = "Organic Apples";
-      setSearchTerm(sampleQuery);
-      navigate(`/deals?search=${encodeURIComponent(sampleQuery)}`);
+      startListening();
     }
   };
 
@@ -137,12 +122,20 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={handleVoiceSearch}
+                disabled={!isSupported}
+                aria-label={isListening ? "Stop voice search" : "Search by voice"}
                 className={`transition-colors flex items-center p-1 rounded-full cursor-pointer ${
                   isListening ? "text-error animate-pulse bg-error/10" : "text-on-surface-variant hover:text-primary"
-                }`}
-                title={isListening ? "Listening... click to stop" : "Voice search"}
+                } ${!isSupported ? "opacity-40 cursor-not-allowed" : ""}`}
+                title={
+                  !isSupported
+                    ? "Voice search isn't supported in this browser"
+                    : isListening
+                      ? "Listening... click to stop"
+                      : "Voice search"
+                }
               >
-                <Mic size={18} />
+                {isListening ? <MicOff size={18} /> : <Mic size={18} />}
               </button>
             </div>
           </form>
@@ -258,19 +251,6 @@ export default function HomePage() {
             <StoreCard key={store.id} store={store} />
           ))}
         </div>
-        {filteredStores.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
-            {filteredStores.map((store) => (
-              <StoreCard key={store.id} store={store} />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-2xl">
-            <p className="font-body text-body-md text-on-surface-variant">
-              No stores found for "{urlQuery}". Try a different search.
-            </p>
-          </div>
-        )}
       </section>
     </main>
   );
