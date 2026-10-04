@@ -74,6 +74,14 @@ export default function StorePage() {
     }
   };
 
+  const handleCheckout = () => {
+    if (!isLoggedIn) {
+      navigate("/login", { state: { from: location.pathname } });
+      return;
+    }
+    setOrderPlaced(true);
+  };
+
   return (
     <main className="flex-grow w-full max-w-content mx-auto px-margin-mobile md:px-margin-desktop py-xl space-y-xl">
       {/* Store Hero Banner */}
@@ -315,6 +323,19 @@ export default function StorePage() {
                 <span>Total Amount</span>
                 <span className="text-primary">Rs. {total.toFixed(2)}</span>
               </div>
+            </div>
+          )}
+
+          {!isLoggedIn && cartItems.length > 0 && (
+            <p className="font-body text-body-sm text-on-surface-variant mt-md text-center">
+              Log in to complete your order.
+            </p>
+          )}
+
+          {orderPlaced && (
+            <div className="flex items-center gap-2 bg-primary/10 text-primary font-label text-label-md px-4 py-3 rounded-md mt-md">
+              <CheckCircle2 size={18} />
+              Order placed successfully.
             </div>
           )}
 

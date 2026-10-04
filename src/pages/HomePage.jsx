@@ -258,6 +258,19 @@ export default function HomePage() {
             <StoreCard key={store.id} store={store} />
           ))}
         </div>
+        {filteredStores.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+            {filteredStores.map((store) => (
+              <StoreCard key={store.id} store={store} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-2xl">
+            <p className="font-body text-body-md text-on-surface-variant">
+              No stores found for "{urlQuery}". Try a different search.
+            </p>
+          </div>
+        )}
       </section>
     </main>
   );
