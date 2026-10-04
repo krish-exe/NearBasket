@@ -20,8 +20,15 @@ Then open the printed local URL (usually http://localhost:5173).
 ## Pages
 
 Customer-facing (NearBasket):
-- `/` — Home page: hero, category grid, top stores near you
-- `/store/:storeId` — Store page with product grid and live cart (try `/store/green-valley-organics`)
+- `/` — Home page: hero, category grid, hot deals, top stores near you
+- `/store/:storeId` — Store page with category filter, in-store search and live cart (try `/store/green-valley-organics` or `/store/punjabi-spice-bazaar`)
+- `/deals` — Deals and product search across all stores (`?search=`, `?category=`, `?view=all`)
+- `/offers` — Promo codes that can be applied to the cart
+- `/orders` — Order history with details and one-click reorder
+- `/checkout` — Delivery address and payment (requires login)
+- `/login`, `/signup` — Demo authentication (stored in localStorage)
+
+The header search supports typing with autocomplete, voice search (Chrome/Edge, via the Web Speech API) and photo search (matches words in the photo's file name against the catalog).
 
 Vendor-facing (Vendor Hub):
 - `/vendor` — Dashboard: stat cards, recent orders, popular products
@@ -39,11 +46,10 @@ Icons use `lucide-react` in place of the Material Symbols font referenced in the
 
 ```
 src/
-  components/    Header, Footer, StoreCard, StatusBadge, VendorLayout
-  pages/         HomePage, StorePage
+  components/    Header, Footer, CartDrawer, RequireAuth, StoreCard, StatusBadge, VendorLayout
+  context/       AuthContext, CartContext, OrderContext (persisted to localStorage)
+  hooks/         useVoiceSearch
+  pages/         HomePage, StorePage, DealsPage, OffersPage, OrdersPage, CheckoutPage, LoginPage, SignupPage, NotFoundPage
   pages/vendor/  DashboardPage, InventoryPage, OrdersPage, SettingsPage
-  data/          mockData.js — sample stores, products, orders, inventory
+  data/          mockData.js — sample stores, products, offers, orders, inventory
 ```
-
-
-test 

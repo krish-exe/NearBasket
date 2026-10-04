@@ -536,7 +536,7 @@ export const offers = [
     discountValue: 20,
     maxDiscount: 100,
     minOrder: 350,
-    categoryId: "fruits-veg",
+    categoryIds: ["fruits-veg"],
     expiryDate: "Valid till 15 Nov 2026",
     tag: "VEGGIES SPECIAL",
     bg: "bg-tertiary-container",
@@ -551,7 +551,7 @@ export const offers = [
     discountValue: 15,
     maxDiscount: 120,
     minOrder: 250,
-    categoryId: "dairy",
+    categoryIds: ["dairy", "bakery"],
     expiryDate: "Valid till 28 Oct 2026",
     tag: "DAILY STAPLES",
     bg: "bg-secondary-container",
@@ -698,7 +698,7 @@ export const recentOrders = [
 
 export const popularProducts = [
   { name: "Organic Bananas (Bunch)", sold: 42, pct: 100 },
-  { name: "Local Whole Milk (1 Litre)", font: 38, pct: 90 },
+  { name: "Local Whole Milk (1 Litre)", sold: 38, pct: 90 },
   { name: "Fresh Sourdough Bread", sold: 24, pct: 57 },
   { name: "Free-Range Brown Eggs", sold: 19, pct: 45 },
 ];

@@ -5,6 +5,7 @@ import StoreCard from "../components/StoreCard";
 import { categories, stores, products } from "../data/mockData";
 import { useCart } from "../context/CartContext";
 import { useVoiceSearch } from "../hooks/useVoiceSearch";
+import { searchTermFromImage } from "../utils/imageSearch";
 
 const ICONS = {
   basket: ShoppingBasket,
@@ -31,7 +32,7 @@ export default function HomePage() {
   };
 
   const handleCategoryClick = (catId) => {
-    navigate(`/store/green-valley-organics?category=${catId}`);
+    navigate(catId === "all" ? "/deals?view=all" : `/deals?category=${catId}`);
   };
 
   const { isListening, isSupported, startListening, stopListening } = useVoiceSearch({
@@ -56,13 +57,15 @@ export default function HomePage() {
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const sampleQuery = "Fresh Fruits";
-      setSearchTerm(sampleQuery);
-      navigate(`/deals?search=${encodeURIComponent(sampleQuery)}`);
-    }
+    const file = e.target.files?.[0];
+    e.target.value = ""; // allow picking the same photo again
+    if (!file) return;
+    const term = searchTermFromImage(file);
+    if (!term) return;
+    setSearchTerm(term);
+    navigate(`/deals?search=${encodeURIComponent(term)}`);
   };
+
 
   return (
     <main className="flex-grow w-full max-w-content mx-auto px-margin-mobile md:px-margin-desktop py-xl space-y-2xl">
@@ -168,7 +171,7 @@ export default function HomePage() {
             <h2 className="font-display text-headline-md text-on-surface font-bold">Explore Categories</h2>
             <p className="font-body text-body-sm text-on-surface-variant">Click any category to filter products instantly</p>
           </div>
-          <Link to="/store/green-valley-organics" className="font-label text-label-md text-primary font-bold hover:underline">
+          <Link to="/deals?view=all" className="font-label text-label-md text-primary font-bold hover:underline">
             View All Products
           </Link>
         </div>

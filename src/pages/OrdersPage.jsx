@@ -4,6 +4,7 @@ import { Package, Clock, ShoppingBag, ArrowRight, RotateCcw, CheckCircle2, Eye, 
 import { useOrders } from "../context/OrderContext";
 import { useCart } from "../context/CartContext";
 import StatusBadge from "../components/StatusBadge";
+import { products as catalog } from "../data/mockData";
 
 export default function OrdersPage() {
   const [searchParams] = useSearchParams();
@@ -16,7 +17,9 @@ export default function OrdersPage() {
 
   const handleReorder = (order) => {
     order.items.forEach(({ product, qty }) => {
-      addToCart(product, qty);
+      // Order history stores a trimmed snapshot; re-add the full catalog product when it still exists
+      const current = catalog.find((p) => p.id === product.id) || product;
+      addToCart(current, qty);
     });
     setReorderedId(order.id);
     setTimeout(() => {

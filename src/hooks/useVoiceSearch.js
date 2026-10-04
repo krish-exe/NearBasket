@@ -13,6 +13,11 @@ export function useVoiceSearch({ onResult, lang = "en-IN" } = {}) {
   const [isListening, setIsListening] = useState(false);
   const [error, setError] = useState(null);
   const recognitionRef = useRef(null);
+  // Keep the latest callback so the recognition instance never calls a stale closure
+  const onResultRef = useRef(onResult);
+  useEffect(() => {
+    onResultRef.current = onResult;
+  });
 
   const SpeechRecognition =
     typeof window !== "undefined" &&
@@ -36,8 +41,8 @@ export function useVoiceSearch({ onResult, lang = "en-IN" } = {}) {
 
     recognition.onresult = (event) => {
       const transcript = event.results?.[0]?.[0]?.transcript?.trim();
-      if (transcript && onResult) {
-        onResult(transcript);
+      if (transcript && onResultRef.current) {
+        onResultRef.current(transcript);
       }
     };
 
@@ -59,8 +64,7 @@ export function useVoiceSearch({ onResult, lang = "en-IN" } = {}) {
       recognition.onend = null;
       recognition.abort();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSupported, lang]);
+  }, [SpeechRecognition, isSupported, lang]);
 
   const startListening = useCallback(() => {
     if (!isSupported) {

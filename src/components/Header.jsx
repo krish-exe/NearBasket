@@ -4,6 +4,7 @@ import { MapPin, ChevronDown, Search, Camera, Mic, MicOff, CircleUserRound, Shop
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import { useVoiceSearch } from "../hooks/useVoiceSearch";
+import { searchTermFromImage } from "../utils/imageSearch";
 import { products as mockProducts } from "../data/mockData";
 
 export default function Header() {
@@ -48,7 +49,7 @@ export default function Header() {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      setIsSearchFocused(false);
+    setIsSearchFocused(false);
       navigate(`/deals?search=${encodeURIComponent(searchQuery.trim())}`);
     }
   };
@@ -76,17 +77,23 @@ export default function Header() {
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const sampleQuery = "Fresh Fruits";
-      setSearchQuery(sampleQuery);
-      setIsSearchFocused(true);
-      navigate(`/deals?search=${encodeURIComponent(sampleQuery)}`);
-    }
+    const file = e.target.files?.[0];
+    e.target.value = ""; // allow picking the same photo again
+    if (!file) return;
+    const term = searchTermFromImage(file);
+    if (!term) return;
+    setSearchQuery(term);
+    setIsSearchFocused(false);
+    navigate(`/deals?search=${encodeURIComponent(term)}`);
   };
 
+  const mobileLinkClass = ({ isActive }) =>
+    `flex-1 flex flex-col items-center gap-0.5 py-1.5 font-label text-label-sm transition-colors ${
+      isActive ? "text-primary font-bold" : "text-on-surface-variant"
+    }`;
+
   return (
-    <header className="bg-surface shadow-sm w-full h-16 sticky top-0 z-40">
+    <header className="bg-surface shadow-sm w-full sticky top-0 z-40">
       <input
         type="file"
         ref={fileInputRef}
@@ -94,7 +101,7 @@ export default function Header() {
         accept="image/*"
         className="hidden"
       />
-      <div className="flex justify-between items-center px-margin-mobile md:px-margin-desktop w-full max-w-content mx-auto h-full gap-md">
+      <div className="flex justify-between items-center px-margin-mobile md:px-margin-desktop w-full max-w-content mx-auto h-16 gap-md">
         {/* Left: Logo & Location */}
         <div className="flex items-center gap-lg h-full shrink-0">
           <Link to="/" className="font-display text-headline-md font-bold text-primary hover:opacity-80 transition-opacity">
@@ -156,7 +163,7 @@ export default function Header() {
         </div>
 
         {/* Center: Search Bar with Autocomplete & Camera/Mic */}
-        <div className="flex-1 min-w-[260px] max-w-xl hidden md:block relative mx-sm" ref={searchRef}>
+        <div className="flex-1 min-w-[180px] max-w-xl hidden md:block relative mx-sm" ref={searchRef}>
           <form onSubmit={handleSearchSubmit} className="relative flex items-center w-full">
             <Search className="absolute left-4 text-on-surface-variant pointer-events-none shrink-0" size={18} />
             <input
@@ -252,7 +259,7 @@ export default function Header() {
 
         {/* Right: Nav & Actions */}
         <div className="flex items-center gap-lg shrink-0">
-          <nav className="hidden md:flex items-center gap-md h-full">
+          <nav className="hidden xl:flex items-center gap-md h-full">
             <NavLink
               to="/"
               className={({ isActive }) =>
@@ -315,7 +322,11 @@ export default function Header() {
                 onMouseEnter={() => setAccountOpen(true)}
                 onMouseLeave={() => setAccountOpen(false)}
               >
-                <button className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95">
+                <button
+                  onClick={() => setAccountOpen((open) => !open)}
+                  aria-expanded={accountOpen}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95"
+                >
                   <CircleUserRound size={22} className="text-primary" />
                   <span className="hidden lg:inline font-label text-label-md font-semibold text-on-surface max-w-[120px] truncate">
                     {user?.name || user?.email?.split("@")[0]}
@@ -373,7 +384,7 @@ export default function Header() {
               className="relative px-5 py-2 bg-primary text-on-primary font-label text-label-md rounded-full hover:bg-primary-container transition-colors flex items-center gap-2 cursor-pointer active:scale-95 shadow-sm"
             >
               <ShoppingCart size={18} />
-              <span>Cart</span>
+              <span className="hidden sm:inline">Cart</span>
               {itemCount > 0 && (
                 <span className="ml-1 px-2 py-0.5 bg-secondary text-on-secondary text-xs font-bold rounded-full animate-in zoom-in-50">
                   {itemCount}
@@ -383,6 +394,26 @@ export default function Header() {
           </div>
         </div>
       </div>
+
+      {/* Compact nav: the inline desktop links only fit at xl and up */}
+      <nav className="xl:hidden flex border-t border-outline-variant/20 px-margin-mobile">
+        <NavLink to="/" end className={mobileLinkClass}>
+          <MapPin size={18} />
+          Stores
+        </NavLink>
+        <NavLink to="/deals" className={mobileLinkClass}>
+          <Sparkles size={18} />
+          Deals
+        </NavLink>
+        <NavLink to="/offers" className={mobileLinkClass}>
+          <Tag size={18} />
+          Offers
+        </NavLink>
+        <NavLink to="/orders" className={mobileLinkClass}>
+          <Package size={18} />
+          Orders
+        </NavLink>
+      </nav>
     </header>
   );
 }

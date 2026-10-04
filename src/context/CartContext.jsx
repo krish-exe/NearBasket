@@ -3,6 +3,30 @@ import { offers } from "../data/mockData";
 
 const CartContext = createContext(null);
 
+// Subtotal of the items an offer applies to (whole cart unless the offer is category-specific)
+function eligibleSubtotal(offer, cartItems) {
+  return cartItems.reduce((sum, item) => {
+    const eligible = !offer.categoryIds || offer.categoryIds.includes(item.product.categoryId);
+    return eligible ? sum + item.product.price * item.qty : sum;
+  }, 0);
+}
+
+function computeDiscount(offer, cartItems, subtotal) {
+  if (!offer || subtotal <= 0 || subtotal < offer.minOrder) return 0;
+  const base = eligibleSubtotal(offer, cartItems);
+  if (base <= 0) return 0;
+
+  if (offer.discountType === "flat") {
+    return Math.min(offer.discountValue, base);
+  }
+  if (offer.discountType === "pct") {
+    let disc = (base * offer.discountValue) / 100;
+    if (offer.maxDiscount) disc = Math.min(disc, offer.maxDiscount);
+    return Math.min(disc, base);
+  }
+  return 0;
+}
+
 const CART_STORAGE_KEY = "nearbasket_cart_v1";
 const OFFER_STORAGE_KEY = "nearbasket_offer_v1";
 
@@ -110,20 +134,15 @@ export function CartProvider({ children }) {
     return offers.find((o) => o.code.toUpperCase() === appliedOfferCode.toUpperCase()) || null;
   }, [appliedOfferCode]);
 
-  const discountAmount = useMemo(() => {
-    if (!appliedOffer || subtotal <= 0) return 0;
-    if (subtotal < appliedOffer.minOrder) return 0;
+  const discountAmount = useMemo(
+    () => computeDiscount(appliedOffer, cartItems, subtotal),
+    [appliedOffer, cartItems, subtotal]
+  );
 
-    if (appliedOffer.discountType === "flat") {
-      return Math.min(appliedOffer.discountValue, subtotal);
-    } else if (appliedOffer.discountType === "pct") {
-      let disc = (subtotal * appliedOffer.discountValue) / 100;
-      if (appliedOffer.maxDiscount) {
-        disc = Math.min(disc, appliedOffer.maxDiscount);
-      }
-      return Math.min(disc, subtotal);
-    }
-    return 0;
+  // How much more the shopper must add before the applied code takes effect
+  const offerShortfall = useMemo(() => {
+    if (!appliedOffer) return 0;
+    return Math.max(0, appliedOffer.minOrder - subtotal);
   }, [appliedOffer, subtotal]);
 
   const total = useMemo(() => {
@@ -144,6 +163,12 @@ export function CartProvider({ children }) {
         ).toFixed(0)} more!`,
       };
     }
+    if (foundOffer.categoryIds && eligibleSubtotal(foundOffer, cartItems) <= 0) {
+      return {
+        success: false,
+        message: `${foundOffer.code} only applies to selected categories. Add an eligible item to use it.`,
+      };
+    }
     setAppliedOfferCode(foundOffer.code);
     return { success: true, message: `Offer '${foundOffer.code}' applied successfully!` };
   };
@@ -161,6 +186,7 @@ export function CartProvider({ children }) {
         deliveryFee,
         appliedOffer,
         discountAmount,
+        offerShortfall,
         total,
         isCartOpen,
         openCart,

@@ -1,10 +1,18 @@
 import { useState } from "react";
-import { Search, ChevronDown, FileUp, Minus, Plus, ImageIcon, AlertTriangle, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, ChevronDown, FileUp, Minus, Plus, ImageIcon, AlertTriangle } from "lucide-react";
 import StatusBadge from "../../components/StatusBadge";
 import { inventoryItems } from "../../data/mockData";
 
 export default function InventoryPage() {
   const [items, setItems] = useState(inventoryItems);
+  const [query, setQuery] = useState("");
+
+  const q = query.trim().toLowerCase();
+  const visibleItems = q
+    ? items.filter((item) =>
+        [item.name, item.subtitle, item.id, item.category].some((field) => field?.toLowerCase().includes(q))
+      )
+    : items;
 
   const updateStock = (id, delta) => {
     setItems((prev) =>
@@ -25,6 +33,8 @@ export default function InventoryPage() {
             <input
               className="pl-10 pr-4 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-md font-body text-body-sm focus:outline-none focus:ring-2 focus:ring-primary w-64"
               placeholder="Search products, SKUs..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
             />
           </div>
           <button className="flex items-center gap-2 px-4 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-md font-label text-label-md text-on-surface">
@@ -54,7 +64,14 @@ export default function InventoryPage() {
               </tr>
             </thead>
             <tbody>
-              {items.map((item) => (
+              {visibleItems.length === 0 && (
+                <tr>
+                  <td colSpan={8} className="px-lg py-xl text-center font-body text-body-md text-on-surface-variant">
+                    No products match "{query}".
+                  </td>
+                </tr>
+              )}
+              {visibleItems.map((item) => (
                 <tr key={item.id} className={`border-b border-outline-variant/10 last:border-0 ${item.warning ? "bg-secondary-container/5" : ""}`}>
                   <td className="px-lg py-md">
                     <div className="w-12 h-12 rounded-md overflow-hidden bg-surface-container-high flex items-center justify-center">
@@ -101,29 +118,9 @@ export default function InventoryPage() {
         </div>
 
         <div className="flex items-center justify-between px-lg py-md border-t border-outline-variant/20">
-          <p className="font-body text-body-sm text-on-surface-variant">Showing 1–10 of 42 products</p>
-          <div className="flex items-center gap-1">
-            <button className="w-8 h-8 flex items-center justify-center rounded-md text-on-surface-variant hover:bg-surface-container-high">
-              <ChevronLeft size={16} />
-            </button>
-            {[1, 2, 3].map((n) => (
-              <button
-                key={n}
-                className={`w-8 h-8 flex items-center justify-center rounded-md font-label text-label-md ${
-                  n === 1 ? "bg-primary text-on-primary" : "text-on-surface hover:bg-surface-container-high"
-                }`}
-              >
-                {n}
-              </button>
-            ))}
-            <span className="px-1 text-on-surface-variant">...</span>
-            <button className="w-8 h-8 flex items-center justify-center rounded-md font-label text-label-md text-on-surface hover:bg-surface-container-high">
-              5
-            </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-md text-on-surface-variant hover:bg-surface-container-high">
-              <ChevronRight size={16} />
-            </button>
-          </div>
+          <p className="font-body text-body-sm text-on-surface-variant">
+            Showing {visibleItems.length} of {items.length} products
+          </p>
         </div>
       </div>
     </div>

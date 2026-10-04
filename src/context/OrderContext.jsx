@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { initialOrders } from "../data/mockData";
+import { initialOrders, stores } from "../data/mockData";
 
 const OrderContext = createContext(null);
 
@@ -27,7 +27,10 @@ export function OrderProvider({ children }) {
   }, [orders]);
 
   const placeOrder = ({ customerName, email, address, paymentMethod, cartItems, subtotal, deliveryFee, discount, total, offerCode }) => {
-    const newOrderId = `#NB-${Math.floor(100000 + Math.random() * 900000).toString().slice(0, 4)}`;
+    // No leading "#": the id is passed around in URLs, where "#" starts the fragment
+    const newOrderId = `NB-${Date.now().toString().slice(-6)}`;
+    const storeIds = [...new Set(cartItems.map((item) => item.product.storeId).filter(Boolean))];
+    const storeNames = storeIds.map((id) => stores.find((s) => s.id === id)?.name).filter(Boolean);
     const now = new Date();
     const formattedDate = now.toLocaleDateString("en-GB", {
       day: "2-digit",
@@ -43,11 +46,8 @@ export function OrderProvider({ children }) {
       formattedDate,
       customer: customerName || "Valued Customer",
       email: email || "customer@example.com",
-      storeName: cartItems[0]?.product?.storeId
-        ? cartItems[0].product.storeId === "green-valley-organics"
-          ? "Green Valley Organics"
-          : "Sharma General Store"
-        : "NearBasket Store",
+      storeName: storeNames.length ? storeNames.join(", ") : "NearBasket Store",
+      storeId: storeIds[0] || null,
       items: cartItems.map((item) => ({
         product: {
           id: item.product.id,
@@ -55,6 +55,8 @@ export function OrderProvider({ children }) {
           unit: item.product.unit,
           price: item.product.price,
           image: item.product.image,
+          storeId: item.product.storeId,
+          categoryId: item.product.categoryId,
         },
         qty: item.qty,
       })),
