@@ -47,13 +47,15 @@ function Field({ label, error, icon: Icon, children }) {
 export default function SignupPage() {
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
-  const { login } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { signup } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const redirectTo = location.state?.from || "/";
 
   const handleChange = (field) => (e) => {
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
+    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: null }));
   };
 
   const inputClass = (field) =>
@@ -61,13 +63,20 @@ export default function SignupPage() {
       errors[field] ? "border-error focus:ring-error" : "border-outline-variant"
     }`;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
     const nextErrors = validate(form);
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length === 0) {
-      login({ name: form.name.trim(), email: form.email.trim() });
+    if (Object.keys(nextErrors).length > 0) return;
+
+    setIsSubmitting(true);
+    const result = await signup(form);
+    setIsSubmitting(false);
+    if (result.ok) {
       navigate(redirectTo, { replace: true });
+    } else {
+      setErrors({ [result.field]: result.error });
     }
   };
 
@@ -109,6 +118,7 @@ export default function SignupPage() {
           <Field label="Password" error={errors.password} icon={Lock}>
             <input
               type="password"
+              autoComplete="new-password"
               value={form.password}
               onChange={handleChange("password")}
               className={inputClass("password")}
@@ -119,6 +129,7 @@ export default function SignupPage() {
           <Field label="Confirm Password" error={errors.confirmPassword} icon={Lock}>
             <input
               type="password"
+              autoComplete="new-password"
               value={form.confirmPassword}
               onChange={handleChange("confirmPassword")}
               className={inputClass("confirmPassword")}
@@ -128,9 +139,10 @@ export default function SignupPage() {
 
           <button
             type="submit"
-            className="w-full py-3 bg-primary text-on-primary font-label text-label-md rounded-full hover:bg-primary-container transition-colors shadow-sm"
+            disabled={isSubmitting}
+            className="w-full py-3 bg-primary text-on-primary font-label text-label-md rounded-full hover:bg-primary-container transition-colors shadow-sm disabled:opacity-50"
           >
-            Sign Up
+            {isSubmitting ? "Creating account..." : "Sign Up"}
           </button>
         </form>
 

@@ -33,6 +33,7 @@ function Field({ label, error, icon: Icon, children }) {
 export default function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,6 +41,7 @@ export default function LoginPage() {
 
   const handleChange = (field) => (e) => {
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
+    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: null }));
   };
 
   const inputClass = (field) =>
@@ -47,13 +49,20 @@ export default function LoginPage() {
       errors[field] ? "border-error focus:ring-error" : "border-outline-variant"
     }`;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
     const nextErrors = validate(form);
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length === 0) {
-      login({ email: form.email.trim() });
+    if (Object.keys(nextErrors).length > 0) return;
+
+    setIsSubmitting(true);
+    const result = await login(form.email, form.password);
+    setIsSubmitting(false);
+    if (result.ok) {
       navigate(redirectTo, { replace: true });
+    } else {
+      setErrors({ [result.field]: result.error });
     }
   };
 
@@ -72,6 +81,7 @@ export default function LoginPage() {
           <Field label="Email" error={errors.email} icon={Mail}>
             <input
               type="email"
+              autoComplete="email"
               value={form.email}
               onChange={handleChange("email")}
               className={inputClass("email")}
@@ -82,6 +92,7 @@ export default function LoginPage() {
           <Field label="Password" error={errors.password} icon={Lock}>
             <input
               type="password"
+              autoComplete="current-password"
               value={form.password}
               onChange={handleChange("password")}
               className={inputClass("password")}
@@ -91,9 +102,10 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="w-full py-3 bg-primary text-on-primary font-label text-label-md rounded-full hover:bg-primary-container transition-colors shadow-sm"
+            disabled={isSubmitting}
+            className="w-full py-3 bg-primary text-on-primary font-label text-label-md rounded-full hover:bg-primary-container transition-colors shadow-sm disabled:opacity-50"
           >
-            Log In
+            {isSubmitting ? "Logging in..." : "Log In"}
           </button>
         </form>
 
