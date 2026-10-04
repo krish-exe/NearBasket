@@ -11,12 +11,17 @@ export default function CheckoutPage() {
   const { placeOrder } = useOrders();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    name: user?.name || "Priya Patel",
-    email: user?.email || "priya@example.com",
-    phone: "9876543210",
-    address: "Flat 402, Sunshine Apartments, 100ft Rd, Indiranagar, Bengaluru - 560038",
-    paymentMethod: "Cash on Delivery",
+  const [form, setForm] = useState(() => {
+    const savedLocation = localStorage.getItem("nearbasket_location");
+    return {
+      name: user?.name || "Priya Patel",
+      email: user?.email || "priya@example.com",
+      phone: "9876543210",
+      address: savedLocation
+        ? `Flat 402, Sunshine Apartments, ${savedLocation}`
+        : "Flat 402, Sunshine Apartments, 100ft Rd, Indiranagar, Bengaluru - 560038",
+      paymentMethod: "Cash on Delivery",
+    };
   });
 
   const [errors, setErrors] = useState({});
