@@ -1,22 +1,30 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { initialOrders, stores } from "../data/mockData";
+import { DEMO_ORDER_ID, createDemoOrder } from "../data/trackingData";
 
 const OrderContext = createContext(null);
 
 const ORDERS_STORAGE_KEY = "nearbasket_orders_v1";
 
-export function OrderProvider({ children }) {
-  const [orders, setOrders] = useState(() => {
-    try {
-      const stored = localStorage.getItem(ORDERS_STORAGE_KEY);
-      if (stored) {
-        return JSON.parse(stored);
-      }
-    } catch (e) {
-      console.error("Failed to load orders from localStorage", e);
+function loadOrders() {
+  let loaded = initialOrders;
+  try {
+    const stored = localStorage.getItem(ORDERS_STORAGE_KEY);
+    if (stored) {
+      loaded = JSON.parse(stored);
     }
-    return initialOrders;
-  });
+  } catch (e) {
+    console.error("Failed to load orders from localStorage", e);
+  }
+  // Dev-only: make sure there is an order out for delivery to try the tracking page with
+  if (import.meta.env.DEV && !loaded.some((o) => o.id === DEMO_ORDER_ID)) {
+    return [createDemoOrder(), ...loaded];
+  }
+  return loaded;
+}
+
+export function OrderProvider({ children }) {
+  const [orders, setOrders] = useState(loadOrders);
 
   useEffect(() => {
     try {
@@ -79,8 +87,12 @@ export function OrderProvider({ children }) {
     return orders.find((o) => o.id === orderId) || null;
   };
 
+  const updateOrder = useCallback((orderId, patch) => {
+    setOrders((prev) => prev.map((o) => (o.id === orderId ? { ...o, ...patch } : o)));
+  }, []);
+
   return (
-    <OrderContext.Provider value={{ orders, placeOrder, getOrderById }}>
+    <OrderContext.Provider value={{ orders, placeOrder, getOrderById, updateOrder }}>
       {children}
     </OrderContext.Provider>
   );
