@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { Package, Clock, ShoppingBag, ArrowRight, RotateCcw, CheckCircle2, Eye, MapPin, CreditCard, X } from "lucide-react";
+import { Package, Clock, ShoppingBag, ArrowRight, RotateCcw, CheckCircle2, Eye, MapPin, CreditCard, X, Navigation } from "lucide-react";
 import { useOrders } from "../context/OrderContext";
 import { useCart } from "../context/CartContext";
 import StatusBadge from "../components/StatusBadge";
 import { products as catalog } from "../data/mockData";
+import { TRACKING_STATUS, isActiveOrder, toTrackingStatus } from "../utils/trackingStatus";
 
 export default function OrdersPage() {
   const [searchParams] = useSearchParams();
@@ -12,7 +13,10 @@ export default function OrdersPage() {
   const { orders } = useOrders();
   const { addToCart, openCart } = useCart();
 
-  const [selectedOrder, setSelectedOrder] = useState(null);
+  // /orders?order=<id> opens that order's details (used by the tracking page's "View Order Details")
+  const [selectedOrder, setSelectedOrder] = useState(
+    () => orders.find((o) => o.id === searchParams.get("order")) || null
+  );
   const [reorderedId, setReorderedId] = useState(null);
 
   const handleReorder = (order) => {
@@ -103,7 +107,24 @@ export default function OrdersPage() {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-md">
+                <div className="flex flex-wrap items-center gap-md">
+                  {isActiveOrder(order) && (
+                    <Link
+                      to={`/track-order/${encodeURIComponent(order.id)}`}
+                      className="px-4 py-2 bg-primary text-on-primary font-label text-label-md rounded-full hover:bg-primary-container transition-colors flex items-center gap-1.5 shadow-sm"
+                    >
+                      <Navigation size={16} />
+                      <span>Track Order</span>
+                    </Link>
+                  )}
+                  {toTrackingStatus(order.status) === TRACKING_STATUS.DELIVERED && (
+                    <Link
+                      to={`/track-order/${encodeURIComponent(order.id)}`}
+                      className="px-4 py-2 border border-primary text-primary font-label text-label-md rounded-full hover:bg-primary/5 transition-colors flex items-center gap-1.5"
+                    >
+                      <span>View Order</span>
+                    </Link>
+                  )}
                   <button
                     onClick={() => setSelectedOrder(order)}
                     className="px-4 py-2 bg-surface-container-low text-on-surface font-label text-label-md rounded-full hover:bg-surface-container-high transition-colors flex items-center gap-1.5 cursor-pointer"
