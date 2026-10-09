@@ -1,10 +1,5 @@
 const STYLES = {
   Placed: "bg-[#1976D2]/10 text-[#1976D2]",
-  Confirmed: "bg-[#1976D2]/10 text-[#1976D2]",
-  Preparing: "bg-secondary-container/10 text-secondary",
-  "Ready for pickup": "bg-tertiary/10 text-tertiary",
-  "Picked up": "bg-secondary-container/10 text-secondary",
-  "Out for delivery": "bg-secondary-container/10 text-secondary",
   Delivered: "bg-primary/10 text-primary",
   Pending: "bg-secondary-container/10 text-secondary",
   Accepted: "bg-[#1976D2]/10 text-[#1976D2]",
